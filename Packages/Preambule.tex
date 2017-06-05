@@ -1,0 +1,98 @@
+
+
+% titlepage. This configuration is used in the first frame
+\title[SCAP]{\large \textsc{SCAP - un ensemble de standards pour la gestion de la sécurité}}
+\author{Philippe Thierry}
+\institute{\includegraphics[width=0.15\linewidth]{cc}}
+\date{Vendredi 2 janvier 2017}
+%\logo{\includegraphics[width=0.05\paperwidth]{ece_en}}
+
+\graphicspath{{Images/}{Images/title/}{Images/jury/}{Images/logos/}{Images/questions/}{Images/psched/}{Images/spsched/}{Images/intro/}}
+
+\usepackage{changepage} %% Adjustwidth
+\usepackage{wasysym} % \mars and \female
+\usepackage{hhline} %% Use \hhline in Tables
+
+%\newcommand{\textscbold}[1]{{\fontfamily{cmr}\selectfont \textbf{\textsc{#1}}}}
+\newcommand{\textscbold}[1]{\textbf{\textsc{#1}}}
+
+\newcommand{\frameheaderfoot}{%
+	\begin{tabular}p{0.3\paperwidth}%
+		\includegraphics[width=0.3\paperwidth]{tcomsudparis} \\ %
+	\end{tabular}%
+}
+
+\defbeamertemplate*{title page}{customized}[1][]
+{
+	\centering
+	\vfill
+	%\includegraphics[width=0.6\paperwidth]{MSTIC_LOGO_NB}
+	\vfill
+	\vfill
+	\begin{beamercolorbox}[sep=6pt,center,shadow=true,rounded=true,#1]{title}
+		\usebeamerfont{title}\textcolor{eceColorWhite}{\inserttitle}%
+		\ifx\insertsubtitle\@empty%
+		\else%
+			\vskip0.25em%
+			{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+		\fi%
+	\end{beamercolorbox}%
+	\vfill
+	\vfill
+	\vfill
+	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} c c c}
+		\multirow{3}{*}{\includegraphics[width=0.11\paperwidth]{scap}}
+               & \footnotesize \textscbold{\insertauthor} &
+                \multirow{3}{*}{\includegraphics[width=0.13\paperwidth]{tcomsudparis}} \\ 
+			&	 \scriptsize \insertinstitute	&	\\
+			&	 \tiny \insertdate 			&	\\
+	\end{tabular*}%
+	\vfill
+	\vfill
+}
+
+
+\AtBeginSection[]
+{
+	\begin{frame}
+	\frametitle{Sommaire}
+	\scriptsize \tableofcontents[currentsection, hideothersubsections]%, pausesubsections]
+	\end{frame} 
+}
+
+
+\DeclareBibliographyCategory{fullcited}
+\newcommand{\mybibexclude}[1]{\addtocategory{fullcited}{#1}}
+
+\usepackage{ulem}
+
+\newcommand{\notpresented}[1]{\textcolor{lightgray}{\tiny #1}}
+\newcommand{\alreadypresented}[1]{\textcolor{gray}{\small #1}}
+\newcommand{\nowpresentedwait}[1]{\textcolor{gray}{\normalsize #1}}
+\newcommand{\nowpresented}[1]{\textcolor{eceColorAlert}{\normalsize #1}}
+\newcommand{\altpresented}[2]{\alt<#1>{\nowpresented{#2}}{\nowpresentedwait{#2}}}
+
+%Définitions
+\newcommand{\equals}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\lowerprio}{\prec}
+\newcommand{\higherprio}{\succ}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\newcommand{\algo}{\mathcal{A}}
+\newcommand{\placement}{\uplus}
+\newcommand{\proc}{\pi}
+\newcommand{\task}{\tau}
+\newcommand{\imageScaleGnuPlot}{0.74}
+\newcommand{\thop}{\operatorname{th}}
+\newcommand{\suchthat}{\slash}
+\newcommand{\itemStyle}[1]{\emph{\textbf{#1}}}
+
+
+\setbeamertemplate{navigation symbols}{%
+%\insertslidenavigationsymbol
+%\insertframenavigationsymbol
+%\insertsubsectionnavigationsymbol
+%\insertsectionnavigationsymbol
+%\insertdocnavigationsymbol
+%\insertbackfindforwardnavigationsymbol
+}

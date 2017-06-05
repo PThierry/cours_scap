@@ -1,0 +1,572 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{Packages/drawPierre}[2013/04/29 Extension personnelle, V1.0]
+ 
+% extensions
+\RequirePackage{xkeyval}
+\RequirePackage{pstricks}
+\RequirePackage{pst-all}
+\RequirePackage{pst-3dplot}
+\RequirePackage{pst-eps}
+\RequirePackage{forloop}
+\RequirePackage{pgf}
+
+\RequirePackage[latin1]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\rmfamily % manquant ?
+\DeclareFontShape{T1}{lmr}{bx}{sc}{<-> ssub * cmr/bx/sc}{}
+\DeclareFontShape{T1}{lmr}{b}{sc}{<-> ssub * cmr/b/sc}{}
+
+
+\definecolor{blue}{HTML}{81C5FF}
+\definecolor{yellow}{HTML}{F8FF3B} % FFFC35 -- FFFD65 -- ddda00 -- F6FF00 -- f8ff3b
+%\definecolor{red}{HTML}{FF3333} %red pastel
+%\definecolor{red}{HTML}{FF611E} %orange pastel
+\definecolor{red}{HTML}{FDB99D} %orange pastel FF7E48 -- F79065 -- f6a685 -- fdb99d
+\definecolor{green}{HTML}{86FF5E} % 66FF33 -- 86ff5e
+\definecolor{realred}{HTML}{FF0000}
+
+
+\newcommand*{\paramRTlineWidth}{0.1pt}
+
+
+\makeatletter
+\newcommand*{\getlength}[2]{%
+   % Convert to `cm` and round to two fractional digits:
+  \pgfmathtruncatemacro#1{round(3.51459804*#2)/100.0}%
+
+}
+
+\makeatother
+
+\def\taskColorError{realred}
+\newcommand{\myTheCnt}[1]{\csuse{thecnt#1}}
+\newcommand{\myCnt}[1]{\csuse{cnt#1}}
+
+\makeatletter
+
+\define@key{paramRT}{x}[0]{\def\paramRT@x{#1}}
+\define@key{paramRT}{y}[0]{\def\paramRT@y{#1}}
+\define@key{paramRT}{w}[0]{\def\paramRT@w{#1}}
+\define@key{paramRT}{h}[0]{\def\paramRT@h{#1}}
+\define@key{paramRT}{text}[]{\def\paramRT@text{#1}}
+\define@key{paramRT}{fillcolor}[white]{\def\paramRT@fillcolor{#1}}
+\define@key{paramRT}{linecolor}[gray]{\def\paramRT@linecolor{#1}}
+\define@key{paramRT}{fillstyle}[solid]{\def\paramRT@fillstyle{#1}}
+\define@key{paramRT}{hatchcolor}[white]{\def\paramRT@hatchcolor{#1}}
+\define@key{paramRT}{linewidth}[\paramRTlineWidth]{\def\paramRT@linewidth{#1}}
+\define@key{paramRT}{linestyle}[solid]{\def\paramRT@linestyle{#1}}
+\define@key{paramRT}{framearc}[0]{\def\paramRT@framearc{#1}}
+\define@key{paramRT}{fill}[0]{\def\paramRT@fill{#1}}
+
+\setkeys{paramRT}{x,y,w,h,text,fillcolor,linecolor,fillstyle,hatchcolor,linewidth,linestyle,framearc,fill}
+
+\newlength{\tempVarA}
+\newlength{\tempVarB}
+\newlength{\tempVarC}
+\newlength{\tempVarD}
+\newlength{\tempVarE}
+
+\newcommand*\drawRectangle[1][]{%
+	\begingroup 
+		\setkeys{paramRT}{#1}%
+		\setlength{\tempVarA}{\paramRT@x+\paramRT@w}
+		\setlength{\tempVarB}{\paramRT@y+\paramRT@h}
+
+		\psframe[fillstyle=\paramRT@fillstyle, fillcolor=\paramRT@fillcolor, linecolor=\paramRT@linecolor, hatchcolor=\paramRT@hatchcolor, linewidth=\paramRT@linewidth, linestyle=\paramRT@linestyle, framearc=\paramRT@framearc](\paramRT@x, \paramRT@y)(\tempVarA,\tempVarB)
+		\setlength{\tempVarC}{(\tempVarA+\paramRT@x)/2-\widthof{\paramRT@text}/2}
+		\setlength{\tempVarD}{(\tempVarB+\paramRT@y)/2-\heightof{\paramRT@text}/2}
+		\rput[bl](\tempVarC,\tempVarD){\paramRT@text}
+	\endgroup
+}
+
+\newcommand*\drawCuve[1][]{%
+	\begingroup 
+		\setkeys{paramRT}{#1}%
+		\setlength{\tempVarA}{\paramRT@y+\paramRT@h}
+		\setlength{\tempVarB}{\paramRT@x}
+		\setlength{\tempVarC}{\paramRT@x+\paramRT@w}
+		\setlength{\tempVarD}{\paramRT@x+\paramRT@w}
+		
+		\psline[linecolor=\paramRT@linecolor, linewidth=\paramRT@linewidth, linestyle=\paramRT@linestyle, linearc=.15]{}(\paramRT@x,\tempVarA)(\tempVarB,\paramRT@y)(\tempVarC,\paramRT@y)(\tempVarD,\tempVarA)
+		
+		\setlength{\tempVarA}{\paramRT@h*\paramRT@fill/100}
+		\setlength{\tempVarA}{\paramRT@y+\tempVarA}
+		\psline[fillstyle=\paramRT@fillstyle, fillcolor=\paramRT@fillcolor, linewidth=\paramRT@linewidth, linestyle=none, linearc=.15]{}(\paramRT@x,\tempVarA)(\tempVarB,\paramRT@y)(\tempVarC,\paramRT@y)(\tempVarD,\tempVarA)
+		
+		\setlength{\tempVarB}{\paramRT@x+(\paramRT@w/2)}
+		\setlength{\tempVarC}{\paramRT@y-0.25cm}
+		\rput(\tempVarB,\tempVarC){\paramRT@text}
+	\endgroup
+}
+
+\newcommand*\drawEspaceWithTextH[1][] {
+	\begingroup 
+		\setkeys{paramRT}{#1}%
+				
+		\setlength{\tempVarA}{\paramRT@x+\paramRT@w}
+		\setlength{\tempVarB}{\paramRT@y+\paramRT@h}
+		\setlength{\tempVarC}{\widthof{\paramRT@text}+0.2cm}
+		\setlength{\tempVarD}{\paramRT@x+(\paramRT@w-\tempVarC)/2}
+		\setlength{\tempVarE}{\tempVarD+\tempVarC}
+		
+		\psline[linestyle=dashed, linewidth=\paramRT@linewidth, linecolor=\paramRT@linecolor](\paramRT@x,\paramRT@y)(\paramRT@x,\tempVarB)
+		
+		\psline[linewidth=\paramRT@linewidth, linecolor=\paramRT@linecolor]{<-}(\paramRT@x,\tempVarB)(\tempVarD,\tempVarB)
+		\psline[linewidth=\paramRT@linewidth, linecolor=\paramRT@linecolor]{->}(\tempVarE,\tempVarB)(\tempVarA,\tempVarB)
+		
+		\psline[linestyle=dashed, linewidth=\paramRT@linewidth, linecolor=\paramRT@linecolor](\tempVarA,\tempVarB)(\tempVarA,\paramRT@y)
+		
+		\setlength{\tempVarD}{\tempVarD+\tempVarC/2}
+		\rput(\tempVarD,\tempVarB){\paramRT@text}
+	\endgroup
+}
+
+\newcommand*\drawEspaceWithTextV[1][] {
+	\begingroup 
+		\setkeys{paramRT}{#1}%
+				
+		\setlength{\tempVarA}{\paramRT@x+\paramRT@w}
+		\setlength{\tempVarB}{\paramRT@y+\paramRT@h}
+		\setlength{\tempVarC}{\heightof{\paramRT@text}+0.2cm}
+		\setlength{\tempVarD}{\paramRT@y+(\paramRT@h-\tempVarC)/2}
+		\setlength{\tempVarE}{\tempVarD+\tempVarC}
+		
+		\psline[linewidth=\paramRT@linewidth, linecolor=\paramRT@linecolor]{<-}(\paramRT@x,\paramRT@y)(\paramRT@x,\tempVarE)
+		\psline[linewidth=\paramRT@linewidth, linecolor=\paramRT@linecolor]{->}(\paramRT@x,\tempVarD)(\paramRT@x,\tempVarB)
+		
+		\setlength{\tempVarD}{\tempVarD+\tempVarC/2}
+		\rput(\paramRT@x,\tempVarD){\paramRT@text}
+	\endgroup
+}
+
+\makeatother
+
+
+
+
+
+
+
+\newcounter{cntTaskNumber}
+
+\makeatletter
+
+\define@key{task}{a}[0]{\def\task@a{#1}}
+\define@key{task}{c}[0]{\def\task@c{#1}}
+\define@key{task}{t}[0]{\def\task@t{#1}}
+\define@key{task}{d}[0]{\def\task@d{#1}}
+\define@key{task}{height}[0.9\taskHeight]{\def\task@height{#1}}
+\define@key{task}{ccurrent}[0]{\def\task@ccurrent{#1}}
+\define@key{task}{activated}[0]{\def\task@activated{#1}}
+\define@key{task}{nextActivation}[0]{\def\task@nextActivation{#1}}
+\define@key{task}{displayActivation}[true]{\def\task@displayActivation{#1}}
+\define@key{task}{name}[$\tau_i$]{\def\task@name{#1}}
+\define@key{task}{color}[gray]{\def\task@color{#1}}
+\setkeys{task}{a,c,t,d,height,ccurrent,activated,nextActivation,displayActivation,name,color}
+
+
+\newcommand*\addTask[1][]{%
+	\begingroup 
+		\setkeys{task}{#1}%
+		\stepcounter{cntTaskNumber}
+		
+  		\global \expandafter \edef \csname TaskName\thecntTaskNumber\endcsname {\task@name}
+  		\global \expandafter \edef \csname TaskA\thecntTaskNumber\endcsname {\task@a}
+  		\global \expandafter \edef \csname TaskC\thecntTaskNumber\endcsname {\task@c}
+  		\global \expandafter \edef \csname TaskT\thecntTaskNumber\endcsname {\task@t}
+  		\global \expandafter \edef \csname TaskD\thecntTaskNumber\endcsname {\task@d}
+  		\global \expandafter \edef \csname TaskHeight\thecntTaskNumber\endcsname {\task@height}
+  		\global \expandafter \edef \csname TaskCCurrent\thecntTaskNumber\endcsname {\task@ccurrent}
+  		\global \expandafter \edef \csname TaskActivated\thecntTaskNumber\endcsname {\task@activated}
+  		\global \expandafter \edef \csname TaskNextActivation\thecntTaskNumber\endcsname {\task@nextActivation}
+  		\global \expandafter \edef \csname TaskDisplayActivation\thecntTaskNumber\endcsname {\task@displayActivation}
+  		\global \expandafter \edef \csname TaskColor\thecntTaskNumber\endcsname {\task@color}
+	\endgroup
+}
+
+\makeatother
+
+
+\newcommand\getTaskName[1]{\csuse{TaskName#1}}
+\newcommand\getTaskA[1]{\csuse{TaskA#1}}
+\newcommand\getTaskC[1]{\csuse{TaskC#1}}
+\newcommand\getTaskT[1]{\csuse{TaskT#1}}
+\newcommand\getTaskD[1]{\csuse{TaskD#1}}
+\newcommand\getTaskCCurrent[1]{\csuse{TaskCCurrent#1}}
+\newcommand\getTaskHeight[1]{\csuse{TaskHeight#1}}
+\newcommand\getTaskActivated[1]{\csuse{TaskActivated#1}}
+\newcommand\getTaskNextActivation[1]{\csuse{TaskNextActivation#1}}
+\newcommand\getTaskDisplayActivation[1]{\csuse{TaskDisplayActivation#1}}
+\newcommand\setTaskCCurrent[2]{\csdef{TaskCCurrent#1}{#2}}
+\newcommand\setTaskActivated[2]{\csdef{TaskActivated#1}{#2}}
+\newcommand\setTaskNextActivation[2]{\csdef{TaskNextActivation#1}{#2}}
+
+\newcommand\getTaskColor[1]{\csuse{TaskColor#1}}
+
+\newcommand*\drawTaskRectangle[2][]{%
+		\drawRectangle[fillcolor=\getTaskColor{#2}, h=\getTaskC{#2}, text=\getTaskName{#2}, #1]
+}
+
+
+\makeatletter
+
+\newcommand*\drawTaskLine[2][]{%
+		\setkeys{paramRT}{x,y,w,h,text,fillcolor,linecolor,fillstyle,hatchcolor,linewidth,linestyle,fill}
+		\begingroup 
+			\setkeys{paramRT}{#1}%
+			\setlength{\tempVarD}{\paramRT@x+\paramRT@w+0.5pt}
+			\setlength{\tempVarE}{\paramRT@y+0.5pt}
+			
+			\drawRectangle[fillcolor=\getTaskColor{#2}, text=\getTaskName{#2}, #1, h=\getTaskHeight{#2}, w=\getTaskC{#2}, x=\tempVarD, y=\tempVarE]
+		\endgroup
+}
+
+\newcommand*\drawTaskActivationLine[2][]{%
+		\setkeys{paramRT}{x,y,w,h,text,fillcolor,linecolor,fillstyle,hatchcolor,linewidth,linestyle,fill}
+		\begingroup 
+			\setkeys{paramRT}{#1}%
+			\setlength{\tempVarA}{\paramRT@x+\getTaskD{#2}}
+			\setlength{\tempVarB}{\paramRT@y+\taskHeight+\spaceItemTask}
+			\setlength{\tempVarC}{\paramRT@x+\getTaskD{#2}+\spaceItemTask}
+			
+			\psline[linecolor=\paramRT@linecolor, linewidth=\paramRT@linewidth]{->}(\paramRT@x,\paramRT@y)(\paramRT@x,\tempVarB) % Activation
+			\psline[linecolor=\paramRT@linecolor, linewidth=\paramRT@linewidth]{<-}(\tempVarA,\paramRT@y)(\tempVarA,\tempVarB) % Activation
+		\endgroup
+}
+
+\makeatother
+
+
+
+
+
+
+
+
+
+
+
+\newcounter{cntProcNumber}
+
+\makeatletter
+\define@key{proc}{name}[$\pi_i$]{\def\proc@name{#1}}
+\define@key{proc}{color}[gray]{\def\proc@color{#1}}
+\setkeys{proc}{name,color}
+
+
+\newcommand*\addProc[1][]{%
+	\begingroup 
+		\setkeys{proc}{#1}%
+		\stepcounter{cntProcNumber}
+		
+  		\global \expandafter \edef \csname ProcName\thecntProcNumber\endcsname {\proc@name}
+  		\global \expandafter \edef \csname ProcColor\thecntProcNumber\endcsname {\proc@color}
+	\endgroup
+}
+
+\makeatother
+
+\newcommand\getProcName[1]{\csuse{ProcName#1}}
+\newcommand\getProcColor[1]{\csuse{ProcColor#1}}
+
+\makeatletter
+\newcommand*\drawProc[2][]{%
+	\setkeys{paramRT}{x,y,w,h,text,fillcolor,linecolor,fillstyle,hatchcolor,linewidth,linestyle,fill}
+	\begingroup 
+		\setkeys{paramRT}{#1}%
+		\setlength{\tempVarE}{\paramRT@linewidth*10}
+		\drawCuve[linecolor=\getProcColor{#2}, text=\getProcName{#2}, fillstyle=none, #1, linewidth=\tempVarE]
+	\endgroup
+}
+\makeatother
+
+
+
+\makeatletter
+
+\newcommand*\drawProcLine[2][]{%
+		\setkeys{paramRT}{x,y,w,h,text,fillcolor,linecolor,fillstyle,hatchcolor,linewidth,linestyle,fill}
+		\begingroup 
+			\setkeys{paramRT}{#1}%
+			\setlength{\tempVarA}{\paramRT@x+\paramRT@w}
+			\setlength{\tempVarB}{\paramRT@y+\paramRT@h}
+			\setlength{\tempVarC}{\paramRT@x-0.5cm}
+			\setlength{\tempVarD}{\paramRT@y+\taskHeight/2}
+			
+			\rput(\tempVarC,\tempVarD){\getProcName{#2}}	
+			\psline{->}(\paramRT@x,\paramRT@y)(\tempVarA,\tempVarB) 			%Line
+		\endgroup
+}
+
+\makeatother
+
+
+
+
+
+
+
+
+
+\makeatletter
+
+
+\newlength{\spaceItemTask}
+\setlength{\spaceItemTask}{0.1cm}
+\newlength{\spaceItem}
+\setlength{\spaceItem}{0.25cm}
+\newlength{\procWidth}
+\setlength{\procWidth}{1.5cm}
+\newlength{\taskWidth}
+\setlength{\taskWidth}{\procWidth-\spaceItemTask}
+
+
+
+
+
+\newcounter{cntAssignProcNumber}
+
+\define@key{assignTaskOnProc}{proc}[0]{\def\assignTaskOnProc@proc{#1}}
+\define@key{assignTaskOnProc}{task}[0]{\def\assignTaskOnProc@task{#1}}
+\setkeys{assignTaskOnProc}{proc,task}
+
+
+\newcommand*\addTaskOnProc[1][]{%
+	\begingroup 
+		\setkeys{assignTaskOnProc}{#1}%
+		
+		\@ifundefined{c@\expandafter\noexpand cntAssignProc\assignTaskOnProc@proc}
+		{\newcounter{cntAssignProc\assignTaskOnProc@proc}}{}
+		
+		\ifthenelse{\value{cntAssignProc\assignTaskOnProc@proc} < 1}
+		{
+			\stepcounter{cntAssignProcNumber}
+			\global \expandafter \edef \csname AssignProc\thecntAssignProcNumber\endcsname {\assignTaskOnProc@proc}}{}
+		
+		\stepcounter{cntAssignProc\assignTaskOnProc@proc}
+  		\global \expandafter \edef \csname AssignTaskOnProc\assignTaskOnProc@proc Num\myTheCnt{AssignProc\assignTaskOnProc@proc}\endcsname {\assignTaskOnProc@task}
+	\endgroup
+}
+
+\newcommand\getAssignProc[1]{\csuse{AssignProc#1}}
+\newcommand\getTaskOnProc[2]{\csuse{AssignTaskOnProc#1Num#2}}
+
+\newlength{\varAtemp}
+\newlength{\varBtemp}
+\newlength{\varCtemp}
+\newlength{\varDtemp}
+\newlength{\varEtemp}
+\newlength{\varFtemp}
+\newlength{\varGtemp}
+\newlength{\varHtemp}
+
+\newcounter{numberOfProcs}
+\newcounter{numberOfMaximumProcs}
+\newcounter{numberOfTasks}
+\newcounter{numberOfMaximumTasks}
+
+\define@key{placementEnv}{number}[1]{\def\placementEnv@number{#1}}
+\define@key{placementEnv}{numbercolor}[\black]{\def\placementEnv@numbercolor{#1}}
+\define@key{placementEnv}{y}[0]{\def\placementEnv@y{#1}}
+\define@key{placementEnv}{x}[0]{\def\placementEnv@x{#1}}
+\define@boolkey{placementEnv}{error}[true]{}
+\define@boolkey{placementEnv}{numbered}[true]{}
+\setkeys{placementEnv}{number,x,y,numbercolor,error,numbered}
+
+\newenvironment{placement}[1][]
+{
+	\cleanAssignTaskOnProc
+	\setkeys{placementEnv}{number,x,y,numbercolor}
+	\begingroup 
+	\setkeys{placementEnv}{#1}%
+}
+{
+	\setcounter{numberOfMaximumProcs}{\thecntAssignProcNumber}
+	\addtocounter{numberOfMaximumProcs}{1}
+	
+	\setlength{\varAtemp}{\placementEnv@x}
+	\setlength{\varBtemp}{\placementEnv@y}
+
+	\forloop{numberOfProcs}{1}{\value{numberOfProcs} < \value{numberOfMaximumProcs}}{
+		%Processor
+		\drawProc[x=\varAtemp, y=\varBtemp, w=\procWidth, h=\procHeight]{\getAssignProc{\thenumberOfProcs}}
+		
+		\setcounter{numberOfMaximumTasks}{\myTheCnt{AssignProc\getAssignProc{\thenumberOfProcs}}}
+		\addtocounter{numberOfMaximumTasks}{1}
+		
+		\setlength{\varCtemp}{\varAtemp+\spaceItemTask/2}
+		\setlength{\varDtemp}{\varBtemp+\spaceItemTask}
+		\forloop{numberOfTasks}{1}{\value{numberOfTasks} < \value{numberOfMaximumTasks}}{
+			\ifthenelse{\getTaskOnProc{\getAssignProc{\thenumberOfProcs}}{\thenumberOfTasks} > 0}
+			{
+				\drawTaskRectangle[x=\varCtemp, y=\varDtemp, w=\taskWidth]{\getTaskOnProc{\getAssignProc{\thenumberOfProcs}}{\thenumberOfTasks}}
+				\setlength{\varDtemp}{\varDtemp+\getTaskC{\getTaskOnProc{\getAssignProc{\thenumberOfProcs}}{\thenumberOfTasks}}}
+			}{}
+		}
+		
+		\ifKV@placementEnv@error
+			\setlength{\varEtemp}{\varDtemp}
+			\setlength{\varFtemp}{\placementEnv@y+\procHeight}
+			\setlength{\varEtemp}{\varEtemp-\varFtemp}
+			\ifthenelse{\varEtemp > 0}
+			{
+			\drawRectangle[x=\varCtemp, y=\varFtemp, w=\taskWidth, h=\varEtemp, text=, fillcolor=magenta, fillstyle=crosshatch, linestyle=none, hatchcolor=\taskColorError, linewidth=0pt]
+			}{}
+		\else
+		\fi
+		
+		\setlength{\varAtemp}{\varAtemp+\procWidth+\spaceItem}
+    }
+    
+    \ifKV@placementEnv@numbered
+   		\setlength{\varCtemp}{\placementEnv@x+(\varAtemp-\spaceItem-\placementEnv@x)/2}
+		\setlength{\varDtemp}{\varBtemp-\spaceItem-\spaceItem}
+		\rput(\varCtemp,\varDtemp){\placementEnv@numbercolor \textcircled{\scriptsize \placementEnv@number}}
+    \fi
+    
+	\endgroup
+	\cleanAssignTaskOnProc
+}
+
+\newcommand\cleanAssignTaskOnProc[0]{
+	\setcounter{numberOfMaximumProcs}{\thecntAssignProcNumber}
+	\addtocounter{numberOfMaximumProcs}{1}
+
+	\forloop{numberOfProcs}{1}{\value{numberOfProcs} < \value{numberOfMaximumProcs}}{
+		\setcounter{cntAssignProc\getAssignProc{\thenumberOfProcs}}{0}
+	}
+	\setcounter{cntAssignProcNumber}{0}
+}
+
+
+
+
+
+
+
+\newcounter{numberOfCurrentTime}
+\newcounter{numberOfMaximumCurrentTime}
+
+\define@key{scheduleEnv}{y}[0]{\def\scheduleEnv@y{#1}}
+\define@key{scheduleEnv}{x}[0]{\def\scheduleEnv@x{#1}}
+\define@key{scheduleEnv}{length}[0]{\def\scheduleEnv@length{#1}}
+\define@boolkey{scheduleEnv}{time}[true]{}
+\define@boolkey{scheduleEnv}{error}[false]{}
+\setkeys{scheduleEnv}{x,y,error,time,length}
+
+\global \newcommand{\myTaskVal}{0}
+
+\newenvironment{schedule}[1][]
+{
+	\cleanAssignTaskOnProc
+	\setkeys{scheduleEnv}{x,y,error,time,length}
+	\begingroup 
+	\setkeys{scheduleEnv}{#1}%
+}
+{
+	\setcounter{numberOfMaximumProcs}{\thecntAssignProcNumber}
+	\addtocounter{numberOfMaximumProcs}{1}
+	
+	\setlength{\varAtemp}{\scheduleEnv@x}
+	\setlength{\varBtemp}{\scheduleEnv@y-0.5cm}
+	\setlength{\varEtemp}{0cm}
+
+	\getlength{\myVal}{\scheduleEnv@length}
+	\ifKV@scheduleEnv@time
+		\setcounter{numberOfMaximumCurrentTime}{\myVal}
+		\addtocounter{numberOfMaximumCurrentTime}{1}
+		\forloop{numberOfCurrentTime}{0}{\value{numberOfCurrentTime} < \value{numberOfMaximumCurrentTime}}{
+			\setlength{\varAtemp}{\scheduleEnv@x+\varEtemp}
+			\rput(\varAtemp,\varBtemp){\thenumberOfCurrentTime}
+			\setlength{\varEtemp}{\varEtemp+1cm}
+		}
+	\fi
+		
+	\setlength{\varAtemp}{\scheduleEnv@x}
+	\setlength{\varBtemp}{\scheduleEnv@y}
+	\setlength{\varEtemp}{0cm}
+	
+	\forloop{numberOfProcs}{1}{\value{numberOfProcs} < \value{numberOfMaximumProcs}}{
+		%Processor
+		\drawProcLine[x=\varAtemp, y=\varBtemp, w=\scheduleEnv@length, h=\varEtemp]{\getAssignProc{\thenumberOfProcs}}
+		\setlength{\varDtemp}{\varBtemp}
+		
+		\getlength{\myVal}{\scheduleEnv@length}
+		\setcounter{numberOfMaximumCurrentTime}{\myVal}
+		\addtocounter{numberOfMaximumCurrentTime}{1}
+		\forloop{numberOfCurrentTime}{0}{\value{numberOfCurrentTime} < \value{numberOfMaximumCurrentTime}}{
+			\setlength{\varCtemp}{\scheduleEnv@x+\value{numberOfCurrentTime} cm}
+			
+			\setcounter{numberOfMaximumTasks}{\myTheCnt{AssignProc\getAssignProc{\thenumberOfProcs}}}
+			\addtocounter{numberOfMaximumTasks}{1}
+			\forloop{numberOfTasks}{1}{\value{numberOfTasks} < \value{numberOfMaximumTasks}}{
+			
+				\renewcommand{\myTaskVal}{\getTaskOnProc{\getAssignProc{\thenumberOfProcs}}{\thenumberOfTasks}}
+				
+				\getlength{\myValA}{\getTaskA{\myTaskVal}}
+				\getlength{\myValT}{\getTaskT{\myTaskVal}}
+				\getlength{\myValD}{\getTaskD{\myTaskVal}}
+				\getlength{\myValNextActivation}{\getTaskNextActivation{\myTaskVal}}
+				\getlength{\myValCCurrent}{\getTaskCCurrent{\myTaskVal}}
+				\ifthenelse{\myValNextActivation = 0}{
+					\setTaskNextActivation{\myTaskVal}{\myValA cm}
+					\getlength{\myValNextActivation}{\getTaskNextActivation{\myTaskVal}}
+				}{}
+				\setlength{\varGtemp}{\getTaskD{\myTaskVal}+\getTaskNextActivation{\myTaskVal}}
+				\getlength{\myValEndD}{\varGtemp}
+					
+%				\getlength{\myValNextActivationer}{\getTaskNextActivation{1}}
+%				\setlength{\varGtemp}{\value{numberOfCurrentTime} cm}
+%				\setlength{\varGtemp}{0.5\varGtemp}
+%				\rput(2,\varGtemp){Task: 1 : \myValNextActivationer : \myTaskVal}
+				\ifthenelse{\myTaskVal > 0 \and \value{numberOfCurrentTime} = \myValNextActivation \and \myValEndD < \value{numberOfMaximumCurrentTime}}
+				{
+				
+				
+					\drawTaskLine[x=\varCtemp, y=\varDtemp, w=\varEtemp]{\myTaskVal}
+					%\renewcommand{\myTaskVal}{\getTaskOnProc{\getAssignProc{\thenumberOfProcs}}{\thenumberOfTasks}}
+					\setTaskActivated{\myTaskVal}{1}
+					\ifthenelse{\equal{\getTaskDisplayActivation{\myTaskVal}}{true}}{
+						\drawTaskActivationLine[x=\varCtemp, y=\varDtemp, w=\varEtemp]{\myTaskVal}
+					}
+					
+					
+					%\setlength{\varCtemp}{\varCtemp+\getTaskD{\myTaskVal}}
+					%\getlength{\myVal}{\getTaskD{\myTaskVal}}
+					%\addtocounter{numberOfCurrentTime}{\myVal-1}
+					\setlength{\varFtemp}{\myValNextActivation cm+\myValT cm}
+					\setTaskNextActivation{\myTaskVal}{\varFtemp}
+					\getlength{\myValNextActivation}{\getTaskNextActivation{\myTaskVal}}
+				
+				%\setlength{\varGtemp}{\value{numberOfCurrentTime} cm}
+				%\setlength{\varHtemp}{\myTaskVal cm + 0.5\myTaskVal cm}
+				%\rput(\varHtemp,\varGtemp){Task: \myTaskVal : New : \myValNextActivation : \myValT }
+				
+					%\drawTaskRectangle[x=\varCtemp, y=\varDtemp, w=\getTaskC{\getTaskOnProc{\getAssignProc{\thenumberOfProcs}}{\thenumberOfTasks}}, h=\taskHeight]{\getTaskOnProc{\getAssignProc{\thenumberOfProcs}}{\thenumberOfTasks}}
+				}{}
+			}
+		}
+		
+		\setlength{\varBtemp}{\varBtemp+\procHeight+\spaceItem}
+    }
+%    
+%    \ifKV@placementEnv@numbered
+%   		\setlength{\varCtemp}{\placementEnv@x+(\varAtemp-\spaceItem-\placementEnv@x)/2}
+%		\setlength{\varDtemp}{\varBtemp-\spaceItem-\spaceItem}
+%		\rput(\varCtemp,\varDtemp){\placementEnv@numbercolor \textcircled{\scriptsize \placementEnv@number}}
+%    \fi
+    
+	\endgroup
+	\cleanAssignTaskOnProc
+}
+
+
+
+\makeatother
+
+
+
+
+

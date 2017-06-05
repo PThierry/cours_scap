@@ -1,0 +1,237 @@
+\ProvidesPackageRCS $Header: Packages/beamerthemeLACSC.sty,v 1.0 06/11/2013  $
+\mode<presentation>
+\definecolor{eceColor}{RGB}{23,117,188}
+\definecolor{eceColorLight}{RGB}{15,151,207}
+\definecolor{eceColorLightGray}{RGB}{230,230,230}
+\definecolor{eceColorBlack}{RGB}{0,0,0}
+\definecolor{eceColorWhite}{RGB}{255,255,255}
+\definecolor{eceColorAlert}{RGB}{204,51,51}
+\definecolor{eceColorExample}{RGB}{0,153,0}
+\definecolor{eceColorDark}{RGB}{20,80,125}%{0,0,102}
+
+\colorlet{alertTextColor}{eceColorAlert}
+\colorlet{exampleBlockColor}{eceColorLightGray}
+%\colorlet{exampleTitleBlockColor}{eceColor}
+
+\colorlet{sectionColor}{eceColor}
+\colorlet{subsectionColor}{eceColorLight}
+\colorlet{sectionTextColor}{eceColorBlack}
+\colorlet{subsectionTextColor}{eceColorBlack}
+
+\colorlet{normalBlockColor}{eceColorLightGray}
+\colorlet{normalTitleBlockColor}{eceColor}
+
+\colorlet{exampleBlockColor}{eceColorLightGray}
+\colorlet{exampleTitleBlockColor}{eceColorExample}
+\colorlet{exampleBlockTextColor}{eceColorBlack}
+\colorlet{exampleBlockTitleTextColor}{eceColorWhite}
+
+\colorlet{itemColor}{eceColorDark}
+\colorlet{itemTextColor}{eceColorWhite}
+
+\colorlet{titleColor}{eceColor}
+\colorlet{titleTextColor}{eceColorBlack}
+
+
+
+\definecolor{leftFootlineColor}{RGB}{0,102,153}
+\definecolor{middleFootlineColor}{RGB}{51,102,255}
+\definecolor{rightFootlineColor}{RGB}{0,51,255}
+\definecolor{authorColor}{RGB}{55,55,55}
+\definecolor{footlineTitleColor}{RGB}{55,55,55}
+\definecolor{instituteColor}{RGB}{0,0,0}
+\definecolor{dateColor}{RGB}{55,55,55}
+\definecolor{pageColor}{RGB}{55,55,55}
+
+\definecolor{bodyColor}{RGB}{255,255,255}
+\definecolor{normalTextColor}{RGB}{0,0,0}
+\definecolor{exampleTextColor}{RGB}{51,153,51}
+
+\definecolor{normalBlockTextColor}{RGB}{0,0,15}
+\definecolor{normalBlockTitleTextColor}{RGB}{255,255,255}
+
+\definecolor{alertBlockColor}{RGB}{255,153,153}
+\definecolor{alertTitleBlockColor}{RGB}{204,51,51}
+\definecolor{alertBlockTextColor}{RGB}{255,255,255}
+\definecolor{alertBlockTitleTextColor}{RGB}{255,255,255}
+
+% section part color
+\setbeamercolor{section in head/foot}{bg=sectionColor, fg=sectionTextColor}
+\setbeamerfont{section in head/foot}{size=\tiny}
+\setbeamercolor{section in toc}{fg=eceColor}
+% subsection part color
+\setbeamercolor{subsection in head/foot}{bg=subsectionColor, fg=subsectionTextColor}
+\setbeamerfont{subsection in head/foot}{size=\scriptsize}
+\setbeamercolor{subsection in toc}{fg=eceColorLight}
+% title part color
+\setbeamercolor*{block title}{fg=normalBlockTitleTextColor,bg=normalTitleBlockColor}
+\setbeamercolor*{block body}{fg=normalBlockTextColor,bg=normalBlockColor}
+\setbeamercolor*{block title alerted}{fg=alertBlockTitleTextColor,bg=alertTitleBlockColor}
+\setbeamercolor*{block body alerted}{fg=alertBlockTextColor,bg=alertBlockColor}
+\setbeamercolor*{block title example}{fg=exampleBlockTitleTextColor,bg=exampleTitleBlockColor}
+\setbeamercolor*{block body example}{fg=exampleBlockTextColor,bg=exampleBlockColor}
+\setbeamerfont{block title}{size={}}
+\setbeamercolor{titlelike}{fg=titleTextColor,bg=titleColor}
+\setbeamercolor*{normal text}{fg=normalTextColor,bg=bodyColor}
+\setbeamercolor*{example text}{fg=exampleTextColor}
+\setbeamercolor*{alerted text}{fg=alertTextColor}
+\useinnertheme[shadow=true]{rounded}
+\setbeamercolor{item projected}{bg=itemColor,fg=itemTextColor}
+\beamer@compresstrue
+
+% header configuration
+\defbeamertemplate*{headline}{smoothbars theme}
+{%
+	\begin{beamercolorbox}[ht=2.5ex,dp=4.5ex]{section in head/foot}
+		\insertnavigation{\paperwidth}
+	\end{beamercolorbox}%
+	\begin{beamercolorbox}[ht=3.5ex,dp=2ex,%
+		leftskip=.3cm,rightskip=.3cm plus1fil]{subsection in head/foot}
+		\usebeamerfont{subsection in head/foot}\insertsubsectionhead
+	\end{beamercolorbox}%
+}
+\setbeamercolor{author in head/foot}{fg=authorColor}
+\setbeamercolor{author in head/foot}{fg=authorColor}
+\setbeamercolor{title in head/foot}{fg=footlineTitleColor}
+\setbeamercolor{institute in head/foot}{fg=instituteColor}
+\setbeamercolor{date in head/foot}{fg=dateColor}
+% footer configuration
+\defbeamertemplate*{footline}{infolines theme}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor~~
+			%\insertshortinstitute
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+			\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+		\end{beamercolorbox}
+	}%
+	\vskip0pt%
+}
+
+\setbeamertemplate{sections/subsections in toc}[square]
+%\setbeamertemplate{subsections in toc}[circle]
+\setbeamertemplate{itemize item}[square]
+\setbeamercolor{itemize item}{fg=eceColorDark}
+
+
+
+% create a "frameheader" command. This command just show the ECE
+% logos on the feame
+\newcommand{\frameheader}{%
+	\begin{tabular}{p{0.4\paperwidth}p{0.4\paperwidth}}%
+		\iflanguage{frenchb}{
+			\vfill
+			\includegraphics[width=0.450\paperwidth, trim = 2.0cm 1.9cm 2.0cm 1.9cm, clip]{ece_fr} & \\%trim = g b d h
+			
+		}{
+			\vfill
+			\includegraphics[width=0.35\paperwidth]{ece_en} & \\%
+		}
+	\end{tabular}%
+}
+\setbeamerfont{institute}{size=\normalsize}
+\setbeamerfont{date}{size=\small}
+\defbeamertemplate*{title page}{customizedPhD}[1][]
+{
+	\frameheader
+	\vfill
+	\centering
+	\vfill
+	\vfill
+	\begin{beamercolorbox}[sep=6pt,center,shadow=true,rounded=true,#1]{title}
+		\usebeamerfont{title}\inserttitle%
+		\ifx\insertsubtitle\@empty%
+		\else%
+			\vskip0.25em%
+			{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+		\fi%     
+	\end{beamercolorbox}%
+	\vfill
+	\vfill
+	\vfill
+	\begin{beamercolorbox}[center,#1]{author}
+		\usebeamerfont{author}\insertauthor
+	\end{beamercolorbox}
+	\vfill
+	\begin{beamercolorbox}[center,#1]{institute}
+		\usebeamerfont{institute}\insertinstitute
+	\end{beamercolorbox}
+	\vfill
+	\begin{beamercolorbox}[center,#1]{date}
+		\usebeamerfont{date}\insertdate
+	\end{beamercolorbox}
+	\vfill
+	{\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+	\vfill
+}
+
+
+% first add frames background, using the ECE standard canvas
+%\setbeamertemplate{background canvas}{\includegraphics[width=\paperwidth, height=\paperheight]{ece_background}}
+
+% disactive title color. Frame titles will have no bg color
+\setbeamercolor{frametitle}{fg=titleTextColor,bg=}
+
+%% Configure lstlisting colors for C code
+\definecolor{Gray}{rgb}{0.95,0.95,0.95}
+\definecolor{purple}{rgb}{0.8,0,0.8}
+
+% Configuration of the lstlisting system.
+% Add some kernel specific keywords to the C language highlighting
+\lstset{
+	% language
+	language=C,
+	classoffset=0,
+	morekeywords={int,void,long,char,struct,union,enum,unsigned},
+	keywordstyle={\color{blue}},
+	classoffset=1,
+	morekeywords={\_\_user,\_\_init},
+	keywordstyle={\color{red}},
+	classoffset=2,
+	morekeywords={\#define,\#endif,\#if,\#else,\#ifndef},
+	keywordstyle={\color{purple}},
+	classoffset=3,
+	morekeywords={\verb+@+param,\verb+@+return,brief,arg},
+	keywordstyle={\color{green}},
+	classoffset=0
+	%morecomment=*[n][\itshape]{/*}{*/},
+	% generals
+	basicstyle=\tiny,
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{Gray},
+	showtabs=false,
+	frame=single,
+	breaklines=true,
+	captionpos=b
+}
+
+% encapsulating alt command in order to avoid to write to times the text.
+% first arg is the slide on which the red color is used, the second arg is
+% the text to manage
+\newcommand{\myalt}[2]{\alt<#1>{\color{red} #2}{\color{gray} #2}}
+
+\setbeamersize{text margin left=1cm}
+
+
+% support for index
+\makeindex
+\newenvironment{theindex}
+{\let\item\par % definitions for subitem etc 
+}{}
+
+% Debian may not support this
+%\newcommand{\indexspace}{}
+
+
+\mode
+<all>

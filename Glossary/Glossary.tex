@@ -1,0 +1,140 @@
+% Pour compiler les glossaires et les acronymes : 
+% 1. Compiler PDLatex/Latex
+% 2. Compiler les glossaires : makeglossaries %
+%
+%
+% Pour compiler uniquement le glossaire
+% 1. Compiler avec PDFLaTex/Latex
+% 2. Compiler le glossaire : makeindex -s  %.ist -t $1.glg -o $1.gls $1.glo
+% 
+%
+% Pour compiler uniquement les acronymes
+% 1. Compiler avec PDFLaTex/Latex
+% 2. Compiler les acronymes : makeindex -s %.ist -t %.alg -o %.acr %.acn
+% 
+
+%% USE : 
+%% \addAcronymAndGlossary{key}{name}{fullname}{description}; 
+%% Then call \gls{key}
+%% First time, we will display : "fullname (name)".
+%% Then : "name"
+%%
+%% If description is not empty, a glossary entry is also created with the description.
+
+
+%\addAcronymAndGlossary{api}{API}{}{\textbf{A}pplication \textbf{P}rogramming \textbf{I}nterface}{}{An Application Programming Interface (API) is a particular set of rules and specifications that a software program can follow to access and make use of the services and resources provided by another particular software program that implements that API}
+
+\let\textbfOld\textbf
+\renewcommand{\textbf}[1]{#1}
+
+\addAcronymAndGlossary{wcrt}
+{WCRT}
+{WCRTs}
+{\protect\iflanguage{frenchb}{\textbf{P}ire \textbf{T}emps de \textbf{R}{\'e}ponse}{\textbf{W}orst \textbf{C}ase \textbf{R}esponse \textbf{T}ime}}
+{\protect\iflanguage{frenchb}{\textbf{P}ires \textbf{T}emps de \textbf{R}{\'e}ponse}{\textbf{W}orst \textbf{C}ase \textbf{R}esponse \textbf{T}imes}}
+{The \gls{wcrt} of a task is the maximum duration between the activation of the task and the moment it finishes its execution}
+
+\addAcronymAndGlossary{wcet}{WCET}{WCETs}{\textbf{W}orst \textbf{C}ase \textbf{E}xecution \textbf{T}ime}{\textbf{W}orst \textbf{C}ase \textbf{E}xecution \textbf{T}imes}{The \gls{wcet} of a task is the maximum execution time required by the task to complete}
+
+\addAcronymAndGlossary{rt}{\protect\iflanguage{frenchb}{TR}{RT}}{}{\protect\iflanguage{frenchb}{\textbf{T}emps-\textbf{R}{\'e}el}{\textbf{R}eal-\textbf{T}ime}}{}{}
+\addAcronymAndGlossary{rtsj}{RTSJ}{}{\textbf{R}eal-\textbf{T}ime \textbf{S}pecification for \textbf{J}ava}{}{}
+
+\addAcronymAndGlossary{stask}
+{S-Task}
+{S-Tasks}
+{\protect\iflanguage{frenchb}{\textbf{T{\^a}che} \textbf{S}{\'e}quentielle}{\textbf{S}equential \textbf{Task}}}
+{\protect\iflanguage{frenchb}{\textbf{T{\^a}ches} \textbf{S}{\'e}quentielles}{\textbf{S}equential \textbf{Tasks}}}
+{Task model presented in Definition~\ref{def:sysmod_task_sequential_periodic} for the periodic case and Definition~\ref{def:sysmod_task_sequential_sporadic} for the sporadic case. (See page~\pageref{def:sysmod_task_sequential_periodic})}
+
+\addAcronymAndGlossary{ptask}
+{P-Task}
+{P-Tasks}
+{\protect\iflanguage{frenchb}{\textbf{T{\^a}che} \textbf{P}arall{\`e}le}{\textbf{P}arallel \textbf{Task}}}
+{\protect\iflanguage{frenchb}{\textbf{T{\^a}ches} \textbf{P}arall{\`e}les}{\textbf{P}arallel \textbf{Tasks}}}
+{Task model presented in Definition~\ref{def:sysmod_task_parallel_gang} (See page \pageref{def:sysmod_task_parallel_gang}) for the Gang model, Definition~\ref{def:sysmod_task_parallel_forkjoin} (See page \pageref{def:sysmod_task_parallel_forkjoin}) for the Fork-Join model and Definition~\ref{def:parallel_mpmt_taskmodel} (See page \pageref{def:parallel_mpmt_taskmodel}) for the \gls{mpmt} model}
+
+\addAcronymAndGlossary{psched}{P-Scheduling}{}{\protect\iflanguage{frenchb}{\textbf{Ordonnancement} \textbf{P}artitionn{\'e}}{\textbf{P}artitioned \textbf{Scheduling}}}{}{}
+\addAcronymAndGlossary{gsched}{G-Scheduling}{}{\protect\iflanguage{frenchb}{\textbf{Ordonnancement} \textbf{G}lobal}{\textbf{G}lobal \textbf{Scheduling}}}{}{}
+\addAcronymAndGlossary{spsched}{SP-Scheduling}{}{\protect\iflanguage{frenchb}{\textbf{Ordonnancement} \textbf{S}emi-\textbf{P}artitionn{\'e}}{\textbf{S}emi-\textbf{P}artitioned \textbf{Scheduling}}}{}{}
+
+\addAcronymAndGlossary{edf}{EDF}{}{\textbf{E}arliest \textbf{D}eadline \textbf{F}irst}{}{}
+\addAcronymAndGlossary{llf}{LLF}{}{\textbf{L}east \textbf{L}axity \textbf{F}irst}{}{}
+\addAcronymAndGlossary{dm}{DM}{}{\textbf{D}eadline \textbf{M}onotonic}{}{}
+\addAcronymAndGlossary{rm}{RM}{}{\textbf{R}ate \textbf{M}onotonic}{}{}
+\addAcronymAndGlossary{opa}{OPA}{}{\textbf{O}ptimal \textbf{P}riority \textbf{A}ssignment}{}{}
+\addAcronymAndGlossary{im}{IM}{}{\textbf{I}ndex \textbf{M}onotonic}{}{}
+\addAcronymAndGlossary{rma}{RMA}{}{\textbf{R}ate \textbf{M}onotonic \textbf{A}nalysis}{}{}
+
+\addAcronymAndGlossary{ideadline}{I-Deadline}{I-Deadlines}{\textbf{I}mplicit \textbf{Deadline}}{\textbf{I}mplicit \textbf{Deadlines}}{A task is said to have \glsentrytext{ideadline} when its deadline is equal to its period, so $D_i = T_i$}
+\addAcronymAndGlossary{cdeadline}{C-Deadline}{C-Deadlines}{\textbf{C}onstrained \textbf{Deadline}}{\textbf{C}onstraint \textbf{Deadlines}}{A task is said to have \glsentrytext{cdeadline} when its deadline is lower or equal to its period, so $D_i \leq T_i$}
+\addAcronymAndGlossary{adeadline}{A-Deadline}{A-Deadlines}{\textbf{A}rbitraty \textbf{Deadline}}{\textbf{A}rbitrary \textbf{Deadlines}}{A task is said to have \glsentrytext{adeadline} when there is no link between its deadline and its period, so $D_i \leq T_i$ or $D_i \geq T_i$}
+
+\addAcronymAndGlossary{ntest}{N-Test}{N-Tests}{\textbf{N}ecessary \textbf{Test}}{\textbf{N}ecessary \textbf{Tests}}{A test is said to be necessary if a negative result allows us to reject the proposition but a positive result does not allow us to accept the proposition. See Definition~\ref{def:analysis_ntest} and example on page \pageref{def:analysis_ntest}}
+\addAcronymAndGlossary{stest}{S-Test}{S-Tests}{\textbf{S}ufficient \textbf{Test}}{\textbf{S}ufficient \textbf{Tests}}{A test is said to be sufficient if a positive result allows us to accept the proposition but a negative result does not allow us to reject the proposition. See Definition~\ref{def:analysis_stest} and example on page \pageref{def:analysis_stest}}
+\addAcronymAndGlossary{nstest}{NS-Test}{NS-Tests}{\textbf{N}ecessary and \textbf{S}ufficient \textbf{Test}}{\textbf{N}ecessary and \textbf{S}ufficient \textbf{Tests}}{A test is said to be necessary and sufficient if a positive result allows us to accept the proposition and a negative result allows us to reject the proposition. See Definition~\ref{def:analysis_nstest} and example on page \pageref{def:analysis_nstest}}
+
+
+\addAcronymAndGlossary{rbf}{RBF}{}{\textbf{R}equest \textbf{B}ound \textbf{F}unction}{}{The \gls{rbf} represents the upper bound of the work load generated by all tasks with activation instants included within the interval $[0;t)$. See example on page \pageref{eq:sysmod_task_sequential_tasksetrbf}}
+\addAcronymAndGlossary{dbf}{DBF}{}{\textbf{D}emand \textbf{B}ound \textbf{F}unction}{}{The \gls{dbf} represents the upper bound of the work load generated by all tasks with activation instants and absolute deadlines within the interval $[0;t]$. See example on page \pageref{eq:sysmod_task_sequential_tasksetdbf}}
+
+
+\addAcronymAndGlossary{restmig}
+{Rest-Migration}
+{Rest-Migrations}
+{\protect\iflanguage{frenchb}{\textbf{Migration} \textbf{Rest}reinte}{\textbf{Rest}ricted \textbf{Migration}}}
+{\protect\iflanguage{frenchb}{\textbf{Migrations} \textbf{Rest}reintes}{\textbf{Rest}ricted \textbf{Migrations}}}
+{In the \gls{spsched} approach, \gls{restmig} refers to the case where migration is allowed, but only at job boundaries. A job is executed on one processor but successive jobs of a task can be executed on different processors. See Figure~\ref{fig:spsched_main_example_restmig} on page \pageref{fig:spsched_main_example_restmig}}
+\addAcronymAndGlossary{unrestmig}
+{UnRest-Migration}
+{UnRest-Migrations}
+{\protect\iflanguage{frenchb}{\textbf{Migration} \textbf{Non-Rest}reinte}{\textbf{UnRest}ricted \textbf{Migration}}}
+{\protect\iflanguage{frenchb}{\textbf{Migrations} \textbf{Non-Rest}reintes}{\textbf{UnRest}ricted \textbf{Migrations}}}
+{In the \gls{spsched} approach, \gls{unrestmig} refers to the case where migration is allowed, and a job can be portioned between multiple processors. A job can start its execution on one processor and complete on an other processor. See Figure~\ref{fig:spsched_main_example_unrestmig} on page \pageref{fig:spsched_main_example_unrestmig}}
+
+\addAcronymAndGlossary{rrjm}{RRJM}{}{\textbf{R}ound-\textbf{R}obin \textbf{J}ob \textbf{M}igration}{}{Job placement heuristic used for the \gls{spsched} approach with \gls{restmig}. See Definition~\ref{def:spsched_restmig_roundrobin} on page \pageref{def:spsched_restmig_roundrobin}}
+\addAcronymAndGlossary{mld}{MLD}{}{\textbf{M}igration at \textbf{L}ocal \textbf{D}eadline}{}{In the \gls{spsched} approach with \gls{unrestmig}, \gls{mld} refers to the solution of using local deadlines to specify migration points. See Definition~\ref{def:spsched_unrestmig_taskmodel} on page \pageref{def:spsched_unrestmig_taskmodel}}
+
+
+
+
+\addAcronymAndGlossary{mpi}{MPI}{}{\textbf{M}essage \textbf{P}assing \textbf{I}nterface}{}{}
+\addAcronymAndGlossary{openmp}{OpenMP}{}{\textbf{O}pen \textbf{M}ulti-\textbf{P}rocessing}{}{}
+\addAcronymAndGlossary{pthread}{Pthread}{}{\textbf{P}OSIX \textbf{thread}}{}{}
+\addAcronymAndGlossary{tbb}{TBB}{}{\textbf{T}hreading \textbf{B}uilding \textbf{B}locks}{}{}
+
+\addAcronymAndGlossary{ftp}{FTP}{}{\textbf{F}ixed \textbf{T}ask \textbf{P}riority}{}{}
+\addAcronymAndGlossary{dtp}{DTP}{}{\textbf{D}ynamic \textbf{T}ask \textbf{P}riority}{}{}
+\addAcronymAndGlossary{fjp}{FJP}{}{\textbf{F}ixed \textbf{J}ob \textbf{P}riority}{}{}
+\addAcronymAndGlossary{djp}{DJP}{}{\textbf{D}ynamic \textbf{J}ob \textbf{P}riority}{}{}
+\addAcronymAndGlossary{fpp}{FPP}{}{\textbf{F}ixed \textbf{P}rocess \textbf{P}riority}{}{}
+\addAcronymAndGlossary{dpp}{DPP}{}{\textbf{D}ynamic \textbf{P}rocess \textbf{P}riority}{}{}
+\addAcronymAndGlossary{fsp}{FSP}{}{\textbf{F}ixed \textbf{S}ub-program \textbf{P}riority}{}{}
+\addAcronymAndGlossary{fthp}{FThP}{}{\textbf{F}ixed \textbf{Th}read \textbf{P}riority}{}{}
+\addAcronymAndGlossary{dthp}{DThP}{}{\textbf{D}ynamic \textbf{Th}read \textbf{P}riority}{}{}
+\addAcronymAndGlossary{lsf}{LSF}{}{\textbf{L}ongest \textbf{S}ub-program \textbf{F}irst}{}{}
+
+\addAcronymAndGlossary{ci}{CI}{}{\textbf{C}arry \textbf{I}n}{}{A \gls{ci} task refers to a task with one job with arrival instant earlier than the interval $[a;b]$ and deadline in the interval $[a;b]$. See Figure~\ref{fig:ptask_mpmt_wcrt_sequentialtaskCI} on page \pageref{fig:ptask_mpmt_wcrt_sequentialtaskCI}}
+\addAcronymAndGlossary{nc}{NC}{}{\textbf{N}on \textbf{C}arry-in}{}{A \gls{nc} task is the opposite of a \gls{ci} task. It refers to a task with one job with arrival instant and deadline in the interval $[a;b]$. See Figure~\ref{fig:ptask_mpmt_wcrt_sequentialtaskNC} on page \pageref{fig:ptask_mpmt_wcrt_sequentialtaskNC}}
+
+\addAcronymAndGlossary{mpmt}{MPMT}{}{\textbf{M}ulti-\textbf{P}hase \textbf{M}ulti-\textbf{T}hread}{}{\gls{ptask} model given by Definition~\ref{def:parallel_mpmt_taskmodel} on page \pageref{def:parallel_mpmt_taskmodel}}
+
+
+\addAcronymAndGlossary
+{fortas}
+{FORTAS}
+{}
+%{\protect\iflanguage{frenchb}{\textbf{F}ramework p\textbf{O}ur l'\textbf{A}nalyse et la \textbf{S}imulation de syst{\`e}mes \textbf{T}emps \textbf{R}{\'e}el}{\textbf{F}ramework f\textbf{O}r \textbf{R}eal-\textbf{T}ime \textbf{A}nalysis and \textbf{S}imulation}}
+{\textbf{F}ramework f\textbf{O}r \textbf{R}eal-\textbf{T}ime \textbf{A}nalysis and \textbf{S}imulation}
+{}
+{}
+{}
+
+\addAcronymAndGlossary{gui}{GUI}{}{\textbf{G}raphical \textbf{U}ser \textbf{I}nterface}{}{}
+
+\addAcronymAndGlossary{uml}{UML}{}{\textbf{U}nified \textbf{M}odeling \textbf{L}anguage}{}{}
+\addAcronymAndGlossary{ebsf}{EBSF}{}{\textbf{E}uropean \textbf{B}us \textbf{S}ystem of the \textbf{F}uture}{}{\gls{ebsf} is an initiative of the European Commission under the Seventh Framework Programme for Research and Technological Development. Starting in September 2008; \gls{ebsf} is a four-year project with an overall budget of 26 million Euros (16 millions cofunded) and is coordinated by UITP, the International Association of Public Transport. See \url{http://www.ebsf.eu/}}
+\addAcronymAndGlossary{emma}{EMMA}{}{\textbf{E}nvironment \textbf{M}onitoring and \textbf{M}anagement \textbf{A}gents}{}{}
+
+
+\renewcommand{\textbf}[1]{\textbfOld{#1}}
+

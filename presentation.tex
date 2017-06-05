@@ -1,0 +1,319 @@
+\documentclass[biblatex,glossaries]{Packages/beamerLACSC} %,handout
+\usepackage[latin1]{inputenc}
+\usepackage{amsfonts}					% special fonts support (math, etc)
+\usepackage[table]{xcolor}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{pdftricks}
+\usepackage{hyperref}					% allow interal links
+\usepackage{makeidx}
+\begin{psinputs}
+  \usepackage{graphicx}
+  \usepackage{pstricks}
+  \usepackage{pstricks-add}
+  \usepackage{multido}
+  \usepackage{epsfig}
+  \usepackage{pst-grad} % For gradients
+  \usepackage{pst-plot} % For axes
+  \usepackage{pst-tree} % For trees
+  \usepackage{pst-3d} % For three dimensionnal graph
+\end{psinputs}
+
+\addto\captionsenglish{% Replace "english" with the language you use
+  \renewcommand{\contentsname}%
+    {Whatever}%
+}
+
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\input{Packages/Preambule}
+\newcommand\juryPhotoScaleHeight{0.18}% change here the opacity level
+\newcommand\vspaceafterfigure{\vspace{-0.5cm}}% change here the opacity level
+\newcommand\resultfigureheight{4cm}% change here the opacity level
+\renewcommand{\emph}[1]{\textit{#1}}
+\addbibresource{Bibliography/Bibliography}
+
+% New frame title command. The title is pushed on the right and made
+% italic. the double ~~ avoid the title to touch the right border of the frame
+\newcommand{\ftitle}[1]{
+\vspace{-7mm}
+\begin{flushright}{\it #1~~}\end{flushright}
+}
+
+%% Configure lstlisting colors for C code
+\definecolor{Gray}{rgb}{0.95,0.95,0.95}
+\definecolor{purple}{rgb}{0.8,0,0.8}
+
+% encapsulating alt command in order to avoid to write to times the text.
+% first arg is the slide on which the red color is used, the second arg is
+% the text to manage
+\newcommand{\PhDmyalt}[2]{\alt<#1>{\color{red} #2}{\color{gray} #2}}
+
+\newcommand{\myhighlight}[2]{\alt<#1>{\color{red} #2}{#2}}
+
+
+% let's start...
+\begin{document}
+
+% first add frames background, using the ECE standard canvas
+%\setbeamertemplate{background canvas}{\includegraphics[width=\paperwidth]{img/ece.png}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\setcounter{framenumber}{0}
+\titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% disactive title color. Frame titles will have no bg color
+%\setbeamercolor{titlelike}{fg=titleTextColor,bg=white}
+
+\begin{frame}
+  \frametitle{Introduction}
+  \begin{itemize}
+    \item Ce cours décrit l'état de l'art des outils de maintien en condition
+      de sécurité ainsi que les principes généraux et le workflow des standard
+      SCAP.
+    \item Dans le cadre de ce cours, les outils restent orientés pour les
+      cibles GNU/Linux dans l'optique des travaux pratiques mais le sujet du
+      maintien en condition de sécurité est global à l'ensemble d'une
+      infrastructure (appliances propriétaires, postes bureautiques, etc.).
+      Les principes derrière SCAP sont conçus pour supporter l'ensemble des
+      équipements logiciels ou appliances du marché.
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+{\Large Sommaire}
+\setcounter{tocdepth}{1}
+\scriptsize \tableofcontents
+\setcounter{tocdepth}{2}
+\end{frame}
+
+
+%\setbeamertemplate{background canvas}[vertical shading][top=blue!80,midpoint=0.8,bottom=white]
+\section{MCS}
+\subsection{Les principes de base}
+\subsubsection{Maintenir ses équipments à jour}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{blabla}
+\end{frame}
+
+\subsubsection{Appliquer les bonnes pratiques de configuration}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{}
+  
+  %\begin{center}
+  %\includegraphics[width=0.40\paperwidth]{figures/tmobile_g1.jpg}
+  %\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Définir une polique de sécurité d'un système d'information}
+%\only<1>{
+%  \begin{itemize}
+%    \item Depuis la sortie des premiers terminaux Android, de multiples procès ont
+%    lieu entre les nombreux acteurs du marché
+%%    \begin{itemize}
+%    \end{itemize}
+%    \item Ces multiples procès, aux peines parfois impressionnantes ont montré à quel
+%    point la guerre a été (et reste encore) forte entre les différents géants du
+%    secteur 
+%    \begin{itemize}
+%\item guerre des technologies (Java, etc.)
+%    \end{itemize}
+%  \end{itemize}
+%}
+%\only<2>{
+%  \begin{itemize}
+%    \item Un exemple de conséquence est le gain par Microsoft de plus d'1 milliard de
+%  dollars par an en royalties sur les terminaux Android vendus dans le monde,
+%  \end{itemize}
+%}
+\end{frame}
+
+
+\subsection{Quelques exemples d'outils}
+\subsubsection{Recherche de vulnérabilité}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{debsecan}
+\end{frame}
+
+\subsubsection{Bonnes pratiques de configuration}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{bastille}
+\end{frame}
+
+\subsubsection{Traçabilité à une politique de sécurité}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{lynis}
+\end{frame}
+
+\subsection{Les limites de cet état de l'art}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+\subsection{La genèse de SCAP}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+\section{SCAP}
+
+\subsection{Un écosystème de standards}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+\subsection{Un workflow complet pour le MCS}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+\subsection{Etat de l'art des implémentations}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+
+
+%\defverbatim[colored]\lstGHBN{
+%\begin{lstlisting}[language=C]
+%struct hostent *gethostbyname(const char *name) {
+%   printf("FIX ME! implement %s %s:%d\n", __FUNC__, __file__,__line__);
+%     return NULL;
+%}
+%\end{lstlisting}
+%}
+
+\section{Utiliser SCAP}
+
+\subsection{OpenSCAP et SCAP-Security-guide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+\subsection{Tester la conformité d'une cible à une politique de sécurité}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+\subsection{Appliquer des scripts de remédiation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+
+\section{Dans les arcanes du standard}
+
+\subsection{OVAL: rédiger une fiche de test}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+\subsection{XCCDF: Ecrire une politique de sécurité dédiée}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\vspace{5mm}
+\begin{center}
+\frametitle{Questions ?}
+\includegraphics[height=2.5cm]{Images/questions/linux_question}
+\includegraphics[height=2.5cm]{Images/questions/mac_question}
+\includegraphics[height=2.5cm]{Images/questions/windows_question}
+\end{center}
+\end{frame}
+
+\beginbackup
+
+\section{Annexes}
+\subsection{Acronymes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rowcolors{2}{white}{lightgray}
+\begin{frame}
+  \begin{center}
+  \begin{tabular}{ll}
+    \hline
+    \textbf{Acronyme} & \textbf{Signification} \\
+    \hline
+    \hline
+    CCE & Common Configuration Enumeration \\
+    CPE & Common Plateform Enumeration \\
+    CVE & Common Vulnerability Discolsure \\
+    CVSS & Common Vulnerability Scoring System \\
+    CWE & Common Weakness Enumeration \\
+    OS & Operating System \\
+    OVAL & Open Vulneratbility and Assessment Language \\
+    XCCDF & Extencible Configuration Checklist Description Format \\
+  \end{tabular}
+\end{center}
+\end{frame}
+
+\subsection{Table des références}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Sites web utiles}
+  \begin{itemize}
+    \item Cvedetails : \url{https://www.cvedetails.com}
+  \end{itemize}
+\end{frame}
+
+\subsection{Bibliographie et liens utiles}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Livres et articles sur Android et sa sécurité}
+  \begin{itemize}
+    \item Nikolay Elenkov,  {\it Android Security Internals: An In-Depth Guide to Android's
+      Security Architecture} - No starch press, 2015, ISBN : 978-1-59327-581-1
+    \item W. Confer \& W. Roberts, {\it Exploring SE for Android} - PACKT publishing, 2015,
+  ISBN: 978-1-78439-059-4
+\item André Moulu, {\it Sécurité des applications Android constructeurs et construction
+  de backdoors ciblées} - Actes du SSTIC 2013
+\item Nicolas Ruff, {\it Sécurité du système Android} - Actes du SSTIC 2011
+  \end{itemize}
+\end{frame}
+
+\backupend
+
+\end{document}
