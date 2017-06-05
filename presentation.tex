@@ -574,6 +574,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+
+  \begin{center}
+    \begin{figure}
+      \includegraphics[height=5.5cm]{Images/scap/scap_automaton}
+      \label{scap_workflow}
+      \caption{Schéma de synthèse du standard
+      (\url{https://cve.mitre.org/docs/docs-2005/transformational_standards.html})}
+    \end{figure}
+  \end{center}
+
 \end{frame}
 
 \subsection{Etat de l'art des implémentations}
@@ -599,6 +609,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+
 \end{frame}
 
 \subsection{Tester la conformité d'une cible à une politique de sécurité}
@@ -612,6 +623,74 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \end{frame}
+
+
+\subsection{Gérer la sécurité d'une infrastructure}
+
+\defverbatim[colored]\lstoscapd{
+%\begin{lstlisting}[language=sh]
+{\footnotesize
+\begin{verbatim}
+# oscapd-cli task
+---+------------+-------------------------+---------------------+---------
+ID | Title      | Target                  | Modified            | Enabled 
+---+------------+-------------------------+---------------------+---------
+1  | hebdo-t12  | my-debian-laptop        | 2017-04-13 12:44:38 | enabled
+
+# oscapd-cli result 1
+Results of Task "hebdo-t12", ID = 1
+
+---+---------------------+-----------------
+ID | Timestamp           | Status          
+---+---------------------+-----------------
+1  | 2017-04-13 15:51:34 | Non-Compliant
+2  | 2017-04-20 11:51:29 | Non-Compliant
+3  | 2017-04-27 15:51:41 | Compliant
+
+# oscapd-cli result 1 2 arf  > exported-arf-result.xml
+# oscapd-cli result 1 2 report > exported-report.html
+\end{verbatim}
+}
+%\end{lstlisting}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Centraliser les rapports, gérer le SI}
+  \only<1>{
+  \begin{columns}
+    \column{0.5\textwidth}
+
+    \begin{center}
+    \begin{figure}
+      \includegraphics[width=0.9\linewidth]{Images/scap/foreman_compliance}
+      \label{scap_foreman}
+      \caption{Intégration d'OpenSCAP à Foreman
+      (\url{https://www.theforeman.org/plugins/foreman_openscap/0.4/})}
+    \end{figure}
+    \end{center}
+ 
+    \column{0.5\textwidth}
+
+    \begin{center}
+    \begin{figure}
+      \includegraphics[width=0.9\linewidth]{Images/scap/rh_satellite_compliance}
+      \label{scap_rhsatellite}
+      \caption{Intégration d'OpenSCAP à Red-Hat Satellite
+      (\url{https://access.redhat.com/documentation/en-us/red_hat_satellite/6.2/html-single/host_configuration_guide/})}
+    \end{figure}
+    \end{center}
+
+  \end{columns}
+  }
+  \only<2>{
+    Interface du daemon OpenSCAP:
+    \lstoscapd
+  }
+\end{frame}
+
 
 
 \section{Dans les arcanes du standard}
