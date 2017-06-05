@@ -1,8 +1,8 @@
-\documentclass[biblatex,glossaries]{Packages/beamerLACSC} %,handout
+\documentclass[biblatex,glossaries,usenames,dvipsnames]{Packages/beamerLACSC} %,handout
 \usepackage[latin1]{inputenc}
 \usepackage{amsfonts}					% special fonts support (math, etc)
 \usepackage[table]{xcolor}
-\usepackage{color}
+%\usepackage[dvipsnames]{color}
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{pdftricks}
@@ -109,13 +109,38 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{blabla}
+  \frametitle{Suivi des mises à jour et des correctifs}
+  \begin{itemize}
+    \item Principe de base de tout système d'information
+    \item Pas toujours aisé à mettre en application
+      \begin{itemize}
+        \item Tests de non-regression des patchs fonctionnels et de sécurité
+        \item Accès aux dépôts de correctifs pas toujours direct
+        \item Parfois complexe dans un système d'information hétérogène
+          \begin{itemize}
+            \item Imprimantes, appliances, postes bureautiques, serveurs...
+          \end{itemize}
+      \end{itemize}
+    \item Est souvent dénoté sous l'intitulé "patch management"
+  \end{itemize}
 \end{frame}
 
 \subsubsection{Appliquer les bonnes pratiques de configuration}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{}
+  \frametitle{Appliquer les bonnes pratiques de configuration}
+  \begin{itemize}
+    \item Historiquement pas toujours présentes, aujourd'hui de plus en plus
+      souvent fournies par les fournisseurs de logiciels
+    \item Peuvent nécessiter une refonte de l'usage des logiciels (utilisation
+      laxiste du compte administrateur, accès direct aux API internes sans
+      filtrage amont, etc.)
+    \item Initialement peu lisibles dans les guides de sécurité car trop
+      précis (e.g. NIST SP-800-53), les bonnes pratiques de configurations
+      sont apparues au fur et à mesure du temps avec les STIGs (lié à SCAP) et
+      dans les guides techniques (e.g. ANSSI DAT-NT-28, ANSSI DAT-NT-007 pour
+      GNU/Linux)
+  \end{itemize}
   
   %\begin{center}
   %\includegraphics[width=0.40\paperwidth]{figures/tmobile_g1.jpg}
@@ -126,6 +151,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Définir une polique de sécurité d'un système d'information}
+  \begin{itemize}
+    \item Cette politique, nommée PSSI, est sous la responsabilité du DSSI de
+      l'entreprise, et rédigée en comité avec des experts en sécurité des
+      systèmes d'information
+    \item Cette politique n'est valable que si elle est applicable et
+      contrôlable dans le temps
+    \item Une PSSI peut contenir des éléments techniques (durcissement des
+      configurations par exemple) mais contient également souvent des éléments
+      organisationnels (gestion des accès aux salles machines, au bâtiments,
+      gestion des horaires d'accès au(x) site(s), etc.
+    \item Une PSSI dépend des moyens que la société accepte de mettre dans la
+      sécurité de son système d'information (au sens large), mais aussi de la
+      réglementation en vigueur. En France, il existe plusieurs réglementation
+      imposant un durcissement minimum à certains acteurs (typiquement les
+      OIV), comme la PSSIE [p. \ref{pssie}] ou la PPST [p. \ref{ppst}]
+  \end{itemize}
 %\only<1>{
 %  \begin{itemize}
 %    \item Depuis la sortie des premiers terminaux Android, de multiples procès ont
@@ -155,13 +196,33 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{debsecan}
+  \begin{itemize}
+    \item Outil de recherche de vulnérabilité sur un équipement donné
+    \item Spécifique à la distribution Debian. A été porté sous Ubuntu mais
+      sans supporter ces dernières comme cibles
+    \item S'appuie sur les DSA (Debian Security Announces) de
+      security.debian.org pour remonter les vulnérabilités présentes dans
+      l'équipement en fonction du niveau de mise à jour
+    \item Support le formalisme DSA et la traçabilité aux CVE
+  \end{itemize}
 \end{frame}
 
 \subsubsection{Bonnes pratiques de configuration}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{bastille}
+\frametitle{Bastille}
+  \begin{itemize}
+    \item Bastille est un vieil outil de durcissement de configuration,
+      également capable de faire de l'audit et du reporting
+    \item Basé sur une interface interactive pour le durcissement des
+      configurations, il permet à un administrateur peu habitué à la
+      sécurisation d'un OS UNIX ou GNU/Linux d'appliquer les bonnes pratiques
+      de base
+    \item Bien que toujours supporté, Bastille est aujourd'hui en perte de
+      vitesse face à des outils comme Lynis ou OpenSCAP pour l'audit et la
+      remédiation
+  \end{itemize}
 \end{frame}
 
 \subsubsection{Traçabilité à une politique de sécurité}
@@ -169,18 +230,159 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{lynis}
+  \begin{itemize}
+    \item Lynis est un outil en ligne de commandes bien abouti, permettant
+      d'étudier l'état des configuration et des versions des logiciels du
+      système d'exploitation afin de les confronter aux guides de sécurité du
+      NIST et à l'état des vulnérabilités connue
+    \item Le rapport de Lynis est de bonne facture et donne un bon apperçu du
+      niveau de durcissement de l'OS et des manquements présents
+  \end{itemize}
 \end{frame}
 
 \subsection{Les limites de cet état de l'art}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+
+  \only<1-3>{
+  \frametitle{Un écosystème désordonné}
+  }
+  \only<1>{
+  \begin{itemize}
+    \item Bien que les outils de patch management et de suivi de la sécurité
+      d'un équipement existent, l'écosystème de gestion de la sécurité est
+      longtemps resté siloté entre chaque industriel (Microsoft, IBM, etc.),
+      sans véritable définition de standards unifiés permettant de gérer de
+      manière homogène un système d'information
+    \item Les outils de validation des politiques de sécurité ont également
+      longtemps implémenté leurs propres implémentations pour valider les
+      politiques standard, comme le PCI-DSS ou les exigences NIST. Ces
+      implémentations, incluant souvent une validation aurpès de l'ogranisme
+      éditeur de la politique, étant vue (à juste titre) comme une valeur
+      ajoutée du logiciel, imposant de fait aux industriel une fidélité à un
+      éditeur pour simplifier la gestion de la sécurité de leur parc
+  \end{itemize}
+  }
+  \only<2>{
+    \begin{itemize}
+      \item L'existance de structures verticales multiples (en générale par
+        vendeur) et incompatibles entre elles rend le gestion de la sécurité
+        d'un parc quasiment impossible à valider efficacement, à la fois
+        en terme de coût et en terme de garantie
+      \item L'indépendances des échelles, des outils et des protocoles
+        implique une mise en place difficile du plan de gestion de la
+        sécurité, et un surcoût évident au niveau du SoC (Security Operation
+        Center) du système d'information, écartant de fait ce service des
+        petits acteurs
+    \end{itemize}
+  }
+  \only<3>{
+    \begin{itemize}
+      \item L'existance de structures verticales multiples (en générale par
+        vendeur) et incompatibles entre elles rend le gestion de la sécurité
+        d'un parc quasiment impossible à valider efficacement, à la fois
+        en terme de coût et en terme de garantie
+      \item L'indépendances des échelles, des outils et des protocoles
+        implique une mise en place difficile du plan de gestion de la
+        sécurité, et un surcoût évident au niveau du SoC (Security Operation
+        Center) du système d'information, écartant de fait ce service des
+        petits acteurs
+    \end{itemize}
+  }
+
+  \only<4>{
+  \frametitle{Comment corriger le tir ?}
+  \begin{itemize}
+    \item Séparer l'implémentation des sondes du formalisme des tests,
+      permettant d'enrichir chaque partie aisément
+    \item Formaliser l'identification des éqiupements logiciels, matériels
+    \item Formaliser une vulnérabilité et son écosystème (risque, complexité,
+      cible, etc.)
+    \item Définir un ensemble de languages pour définir, sans prendre
+      d'hypothèse sur le logiciel ou matériel cible:
+      \begin{itemize}
+        \item une fiche de test
+        \item une politique de sécurité
+        \item une mécanique de correction de la faiblesse de sécurité
+          (remédiation)
+      \end{itemize}
+    \item {\textcolor{red}{Faire en sorte de faire entrer l'ensemble des constructeurs et éditeurs
+      dans le nouvel écosystème}}
+  \end{itemize}
+  }
 \end{frame}
 
 \subsection{La genèse de SCAP}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+  \frametitle{Petit rappel des organismes parties prenantes}
+  \begin{itemize}
+    \item \PhDmyalt{1}{{\bf DoD} - Department of Defense (US)}\\
+      Ministère de la défense américain. Demandeur de la solution.
+    \item \PhDmyalt{2}{{\bf NSA} - National Security Agency (US)}
+      Agence de sécurité américaine garante de l'efficacité sécuritaire de la
+      solution.
+    \item \PhDmyalt{3}{{\bf DoHS} - Department of Homeland Security (US)}\\
+      Ministère de l'intérieur, co-demandeur.
+    \item \PhDmyalt{4}{{\bf DISA} - Defense Information System Agency (US)}\\
+      Agence en charge de la sécurité des systèmes d'informations de défense,
+      en charge de la rédaction de politiques de sécurité pour les SI de
+      défense américains.
+    \item \PhDmyalt{5}{{\bf NIST} - National Institute for Standards and
+      Technologies (US)}\\
+      Organisme normatif américain, en charge de rédiger et de mettre à jour
+      les standards américain dans le domaine des technologies de
+      l'information et de la communication.
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{itemize}
+    \item La création de SCAP débute au début des années 2000, sur
+      une demande du DoD pour unifier les mécanismes de gestion de la
+      sécurité des systèmes d'information autour d'un ensemble de standards
+    \only<1>{
+    \item Le but est de casser les technologies en silos de suivi de la
+      sécurité pour mettre en application une solution transverse, applicable
+      à l'ensemble d'un système d'information, allant des appliances réseau
+      aux postes de travail, en passant par les serveurs et les équipements
+      embarqués
+    \item La création du standard est poussée par le DoD, la NSA, le DoHS
+      et le DISA (Agence pour les systèmes d'informations de Défense). le
+      standard est porté par le NIST (National Institute for Standard \&
+      Technology)
+    }
+    \only<2>{
+    \item Le NIST défini alors un ensemble de standard:
+      \begin{itemize}
+        \item Les {\it CVE} (Common Vulnerability Exposure), formalisant une
+          vulnérabilité
+        \item Les {\it CVSS} (Common Vulnerability Scoring System), associant une
+          pondération à une vulnérabilité
+        \item Les {\it CWE} (Common Weakness Enumeration), formalisent des
+        famille de faiblesses par type (défaut de configuration, mauvais
+          nettoyage des entrées logicielles, etc.)
+        \item Les {\it CPE} (Common Plateform Enumeration), formalisant une
+          identification des équipements
+        \item {\it XCCDF} (eXtensible Checklist Configuration Description Format),
+          formalisme XML permettant de définir une checklist de sécurité et de
+          générer des rapports de conformité
+        \item {\it OVAL} (Open Vulnerability and Assessment Language), formalisme
+          XML définissant une fiche de test
+      \end{itemize}
+    }
+    \only<3>{
+      \item Les premières présentations (publiques !) de SCAP datent de 2008
+      \item La version 1.0 finalisée du standard, publiée par le NIST,
+        date du 27 juillet 2010
+      \item Les formalismes XCCDF, OVAL possèdent leur propre cycle de vie.
+        Oval en est à la version 5.11, XCCDF à la version 1.2
+    }
+  \end{itemize}
 \end{frame}
 
 \section{SCAP}
@@ -189,7 +391,184 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+   \frametitle{Les CVE}
+   \begin{itemize}
+     \item Une CVE est une formalisation d'une vulnérabilité.
+     \item Une CVE est composé de plusieurs propriétés:
+       \begin{itemize}
+         \item \PhDmyalt{1}{Son score CVSS (défini plus loin), conséquence des autres
+           propriétés}
+         \item \PhDmyalt{2}{Son impact en terme de confidentialité}
+         \item \PhDmyalt{3}{Son impact en terme d'intégrité}
+         \item \PhDmyalt{4}{Son impact en terme de disponibilité}
+         \item \PhDmyalt{5}{Sa complexité technique de mise en oeuvre}
+         \item \PhDmyalt{6}{Le niveau d'accès nécessaire à sa mise en oeuvre}
+         \item \PhDmyalt{7}{Le niveau de gain}
+         \item \PhDmyalt{8}{Le type de vulnérabilité}
+         \item \PhDmyalt{9}{L'identifiant de faiblesse associé (CWE)}
+         \item \PhDmyalt{10}{Un identifiant unique la référençant, sous la forme CVE-<année>-<incrément>}
+       \end{itemize}
+   \end{itemize}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{center}
+  \begin{figure}
+    \includegraphics[height=5.5cm]{Images/scap/cve_example}
+    \caption{CVE-2016-8437 (\url{http://www.cvedetails.com/cve/CVE-2016-8437/})}
+  \end{figure}
+\end{center}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Le CVSS}
+  \begin{itemize}
+    \item Permet de déterminer le niveau de risque associé à une CVE
+    \item est basé sur une echelle de 1 (très faible) à 10 (très important)
+    \item Le calcul du CVSS est basé sur:
+      \begin{itemize}
+        \item l'impact de l'exploitation de la vulnérabilité en terme de
+          confidentialité, d'intégrité et de disponibilité de la cible
+        \item La complexité technique à l'exploitation de la faille (niveau
+          technique nécessaire pour l'attaquant)
+        \item Les hypothèses nécessaires à l'attaque (accès local, distant,
+          nombre de séquences d'authentification préalables sur la cible) 
+      \end{itemize}
+    \item On associe souvent à l'échelle de CVSS l'échelle risque statistique
+      associé à la vulnérabilité. Elle permet de plus de fournir un tableau
+      synthétique du risque moyen par vendeur et/ou composant basé sur
+      l'historique des CVE associées à ce dernier
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+  \only<1>{
+  \begin{center}
+  \begin{figure}
+  \includegraphics[height=5.5cm]{Images/scap/cvss_mswin7}
+    \caption{Synthèse des impacts des vulnérabilités de Ms. Windows 7
+    (\url{http://www.cvedetails.com/cvss-score-charts.php?product_id=17153&fromform=1})}
+  \end{figure}
+  \end{center}
+  }
+  \only<2>{
+  \begin{center}
+  \begin{figure}
+  \includegraphics[height=5.5cm]{Images/scap/cvss_adobe_flash}
+    \caption{Synthèse des impacts des vulnérabilités d'Adobe Flash Player
+    (\url{https://www.cvedetails.com/cvss-score-charts.php?product_id=6761&fromform=1})}
+  \end{figure}
+  \end{center}
+  }
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Les CWE}
+  \begin{itemize}
+    \item Le but des CWE et de définir des familles de faiblesses (à
+      différencier d'une vulnérabilité, une faiblesse n'impliquant pas
+      nécessairement une vulnérabilité), pouvant s'appliquer à tout type de
+      cible logicielle ou matérielle.
+    \item L'usage des CWE permet de fournir un indiquateur de qualimétrie de
+      sécurité de la cible selon l'état des CWE associé et selon les
+      faiblesses détectées
+    \item Les CWE sont organisée sous forme d'une structure hiérarchique de
+      faiblesses
+    \item Il existe des centaines de CWE, parmis lesquelles:
+      \begin{itemize}
+        \item CWE 20: Improper Input Validation. Typiquement une validation
+          incorrecte d'un flux d'entrée non maîtrisée.
+        \item CWE 494: Download of code without integrity check. Exemple de
+          faiblesse liée à la mise à jour logicielle non sécurisée d'une appliance
+      \end{itemize}
+    \item A chaque identitfant de CWE est indiqué l'impact probable d'une CVE
+      de ce type, l'effet probable en terme d'accessibilité, confidentialité
+      et disponibilité, et les manières de s'en prémunir
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Les CPE}
+  \begin{itemize}
+    \item Qui dit formalisation généralisée à l'ensemble des équipements et
+      vendeurs dit définition d'un formalisme pour identifier de manière
+      unique une plateforme. C'est le rôle du dictionnaire CPE
+    \item le format CPE (v2.3) définit une structure de donnée hiérarchique,
+      séparée par des ':'.
+      Voici sa osyntaxe:
+      \begin{itemize}
+        \only<1>{
+          \item cpe : chaine fixe
+          \item cpe-dict-release : numéro de version CPE, aujourd'hui 2.3
+          \item part : type d'équipement ((a)pplication, (o)s, ou (h)ardware)
+          \item vendor : non du vendeur
+          \item productname : nom du produit
+          \item product-version : version du produit
+          \item update-version : numéro de mise à jour de la version (si
+            existant)
+          \item edition-version : édition interne à la numérotation de mise à
+            jour (si existant)
+          \item language-name : langue cible (si existant)
+        }
+        \only<2>{
+          \item Pour Microsoft I.E, on retrouve la structure suivante:\\
+            \colorbox{Cyan}{cpe:2.3:a:microsoft:internet\_explorer:8.0.6001:beta:*:*:*:*:*:*}
+          \item Pour un système d'exploitation (part passe de 'a' à 'o', on aura,
+            par exemple pour Debian:\\
+            \colorbox{Cyan}{cpe:2.3:o:debian:debian\_linux:8.0:*:*:*:*:*:*:*}
+          \item Pour un équipement matériel, hiérarchisé dans la partie
+            'hardware', on aura:\\ 
+            \colorbox{Cyan}{cpe:2.3:h:cisco:12000\_router:-:*:*:*:*:*:*:*}
+          }
+      \end{itemize}
+    \item Il est possible de rédiger ses propres fiches CPE, au format OVAL,
+      sans déclarer son produit auprès du MITRE.
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Le formalisme XCCDF}
+  \begin{itemize}
+    \item Permet de rédiger des checklists (typiquement pour auditer un
+      équipement par rapport à une politique de sécurité)
+    \item est un formalisme XML
+    \item Associe un ensemble de fiches OVAL à une politique de sécurité,
+      assurant ainsi une traçabilité des tests
+    \item Permet d'intégrer des mécanismes d'interactivité via le formalisme
+      OCIL (Open Checklist Interactive Language), correspondant à une sorte
+      d'intégration d'un niveau "QCM" au niveau de la règle. Un exemple
+      typique est la variation de certaines valeurs, comme la durée de session
+      Idle SSH, pouvant varier selon la cible
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Le formalisme OVAL}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Petite synthèse}
+
+\end{frame}
+
+
+
 
 \subsection{Un workflow complet pour le MCS}
 
@@ -283,6 +662,7 @@
     CWE & Common Weakness Enumeration \\
     OS & Operating System \\
     OVAL & Open Vulneratbility and Assessment Language \\
+    STIG & Security Technical Implementation Guide \\
     XCCDF & Extencible Configuration Checklist Description Format \\
   \end{tabular}
 \end{center}
@@ -295,6 +675,11 @@
   \frametitle{Sites web utiles}
   \begin{itemize}
     \item Cvedetails : \url{https://www.cvedetails.com}
+    \item \label{pssie} PSSIE (Politique de Sécurité des Système d'Information de l'Etat)
+      \url{https://www.ssi.gouv.fr/uploads/2014/11/pssie_anssi.pdf}
+    \item \label{ppst} La PPST (Protection du Potentiel Scientifique et Technique) 
+      \url{https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000026140136&dateTexte=20170605}
+    \item \label{cwe} Base des CWE du MITRE (\url{http://cwe.mitre.org})
   \end{itemize}
 \end{frame}
 
