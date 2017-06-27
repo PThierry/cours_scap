@@ -138,11 +138,11 @@
     \item Peuvent nécessiter une refonte de l'usage des logiciels (utilisation
       laxiste du compte administrateur, accès direct aux API internes sans
       filtrage amont, etc.)
-    \item Initialement peu lisibles dans les guides de sécurité car trop
-      précis (e.g. NIST SP-800-53), les bonnes pratiques de configurations
-      sont apparues au fur et à mesure du temps avec les STIGs (lié à SCAP) et
-      dans les guides techniques (e.g. ANSSI DAT-NT-28, ANSSI DAT-NT-007 pour
-      GNU/Linux)
+    \item Initialement peu lisibles dans les guides de sécurité car de trop
+      haut niveau (e.g. NIST SP-800-53), les bonnes pratiques de configurations
+      sont apparues au fur et à mesure du temps avec les STIGs ou 
+      sous forme de CCE (Common Configuration Enumeration) et dans les divers
+      autres guides techniques (e.g. ANSSI DAT-NT-28, ANSSI DAT-NT-007 pour GNU/Linux)
   \end{itemize}
   \end{block}
   
@@ -214,6 +214,31 @@
 \end{frame}
 
 \subsubsection{Bonnes pratiques de configuration}
+\defverbatim[colored]\lstlynis{
+%\begin{lstlisting}[language=sh]
+{\footnotesize
+\begin{verbatim}
+$ sudo lynis audit system
+[...]
+[+] Security frameworks
+------------------------------------
+- Checking presence AppArmor                            [ FOUND ]
+  apparmor filesystem is not mounted.
+  - Checking AppArmor status                            [ UNKNOWN ]
+- Checking presence SELinux                             [ FOUND ]
+  - Checking SELinux status                             [ DISABLED ]
+- Checking presence grsecurity                          [ NOT FOUND ]
+- Checking for implemented MAC frame                    [ NONE ]
+[...]
+Lynis security scan details:
+
+  Hardening index : 51 [##########          ]
+  Tests performed : 207
+  Plugins enabled : 1
+\end{verbatim}
+}
+%\end{lstlisting}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -236,14 +261,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{lynis}
+  \only<1>{
   \begin{itemize}
     \item Lynis est un outil en ligne de commandes bien abouti, permettant
       d'étudier l'état des configuration et des versions des logiciels du
-      système d'exploitation afin de les confronter aux guides de sécurité du
-      NIST et à l'état des vulnérabilités connue
+      système d'exploitation afin de les confronter à une politique de
+      sécurité donnée, pouvant être personnalisée
     \item Le rapport de Lynis est de bonne facture et donne un bon apperçu du
       niveau de durcissement de l'OS et des manquements présents
+    \item Lynis supporte un grand nombre de tests, ce qui en fait un outil
+      riche et efficace, avec une synthèse très convenable
   \end{itemize}
+  }
+  \only<2>{
+    \lstlynis
+  }
 \end{frame}
 
 \subsection{Les limites de cet état de l'art}
