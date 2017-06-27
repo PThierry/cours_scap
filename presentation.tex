@@ -60,7 +60,9 @@
 
 \newcommand{\myhighlight}[2]{\alt<#1>{\color{red} #2}{#2}}
 
+\renewcommand{\frametitle}[1]{{\textbf{\color{darkblue}{#1}}}\\}
 
+\lstset{basicstyle=\fontsize{6}{7}\selectfont\ttfamily}
 % let's start...
 \begin{document}
 
@@ -105,11 +107,11 @@
 %\setbeamertemplate{background canvas}[vertical shading][top=blue!80,midpoint=0.8,bottom=white]
 \section{MCS}
 \subsection{Les principes de base}
-\subsubsection{Maintenir ses équipments à jour}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Suivi des mises à jour et des correctifs}
+  \frametitle{Maintenir ses équipments à jour}
+  \begin{block}{Suivi des mises à jour et des correctifs}
   \begin{itemize}
     \item Principe de base de tout système d'information
     \item Pas toujours aisé à mettre en application
@@ -123,12 +125,13 @@
       \end{itemize}
     \item Est souvent dénoté sous l'intitulé "patch management"
   \end{itemize}
+\end{block}
 \end{frame}
 
-\subsubsection{Appliquer les bonnes pratiques de configuration}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Appliquer les bonnes pratiques de configuration}
+  \begin{block}{}
   \begin{itemize}
     \item Historiquement pas toujours présentes, aujourd'hui de plus en plus
       souvent fournies par les fournisseurs de logiciels
@@ -141,6 +144,7 @@
       dans les guides techniques (e.g. ANSSI DAT-NT-28, ANSSI DAT-NT-007 pour
       GNU/Linux)
   \end{itemize}
+  \end{block}
   
   %\begin{center}
   %\includegraphics[width=0.40\paperwidth]{figures/tmobile_g1.jpg}
@@ -151,6 +155,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Définir une polique de sécurité d'un système d'information}
+  \begin{block}{}
   \begin{itemize}
     \item Cette politique, nommée PSSI, est sous la responsabilité du DSSI de
       l'entreprise, et rédigée en comité avec des experts en sécurité des
@@ -167,44 +172,45 @@
       imposant un durcissement minimum à certains acteurs (typiquement les
       OIV), comme la PSSIE [p. \ref{pssie}] ou la PPST [p. \ref{ppst}]
   \end{itemize}
-%\only<1>{
-%  \begin{itemize}
-%    \item Depuis la sortie des premiers terminaux Android, de multiples procès ont
-%    lieu entre les nombreux acteurs du marché
-%%    \begin{itemize}
-%    \end{itemize}
-%    \item Ces multiples procès, aux peines parfois impressionnantes ont montré à quel
-%    point la guerre a été (et reste encore) forte entre les différents géants du
-%    secteur 
-%    \begin{itemize}
-%\item guerre des technologies (Java, etc.)
-%    \end{itemize}
-%  \end{itemize}
-%}
-%\only<2>{
-%  \begin{itemize}
-%    \item Un exemple de conséquence est le gain par Microsoft de plus d'1 milliard de
-%  dollars par an en royalties sur les terminaux Android vendus dans le monde,
-%  \end{itemize}
-%}
+  \end{block}
 \end{frame}
 
 
 \subsection{Quelques exemples d'outils}
-\subsubsection{Recherche de vulnérabilité}
+
+\defverbatim[colored]\lstdsc{
+%\begin{lstlisting}[language=sh]
+{\footnotesize
+\begin{verbatim}
+# debsecan --only-fixed
+[...]
+  CVE-2016-3710 qemu-system-common (fixed, high urgency)
+  CVE-2016-3712 qemu-system-common (fixed, low urgency)
+  CVE-2016-7966 libakonadi-kmime4 (fixed, remotely exploitable, high urgency)
+  CVE-2016-6232 libkmediaplayer4 (fixed, remotely exploitable, medium urgency)
+  CVE-2017-6410 libkmediaplayer4 (fixed, remotely exploitable, medium urgency)
+  CVE-2017-8422 libkmediaplayer4 (fixed, high urgency)
+[...]
+\end{verbatim}
+}
+%\end{lstlisting}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{debsecan}
+\frametitle{Recherche de vulnérabilité}
+\begin{block}{debsecan}
   \begin{itemize}
     \item Outil de recherche de vulnérabilité sur un équipement donné
     \item Spécifique à la distribution Debian. A été porté sous Ubuntu mais
       sans supporter ces dernières comme cibles
     \item S'appuie sur les DSA (Debian Security Announces) de
       security.debian.org pour remonter les vulnérabilités présentes dans
-      l'équipement en fonction du niveau de mise à jour
-    \item Support le formalisme DSA et la traçabilité aux CVE
+      l'équipement
+    \item Assure une traçabilité aux CVEs
   \end{itemize}
+  \end{block}
+  \lstdsc
 \end{frame}
 
 \subsubsection{Bonnes pratiques de configuration}
@@ -391,24 +397,34 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-   \frametitle{Les CVE}
+   \begin{block}{Les CVEs}
    \begin{itemize}
      \item Une CVE est une formalisation d'une vulnérabilité.
-     \item Une CVE est composé de plusieurs propriétés:
-       \begin{itemize}
-         \item \PhDmyalt{1}{Son score CVSS (défini plus loin), conséquence des autres
-           propriétés}
-         \item \PhDmyalt{2}{Son impact en terme de confidentialité}
-         \item \PhDmyalt{3}{Son impact en terme d'intégrité}
-         \item \PhDmyalt{4}{Son impact en terme de disponibilité}
-         \item \PhDmyalt{5}{Sa complexité technique de mise en oeuvre}
-         \item \PhDmyalt{6}{Le niveau d'accès nécessaire à sa mise en oeuvre}
-         \item \PhDmyalt{7}{Le niveau de gain}
-         \item \PhDmyalt{8}{Le type de vulnérabilité}
-         \item \PhDmyalt{9}{L'identifiant de faiblesse associé (CWE)}
-         \item \PhDmyalt{10}{Un identifiant unique la référençant, sous la forme CVE-<année>-<incrément>}
-       \end{itemize}
+     \item Une CVE est composé d'un ensemble de propriétés
    \end{itemize}
+ \end{block}
+   \only<1>{
+     \vfill
+     \vfill
+     \vfill
+   }
+   \only<2>{
+     {\small
+    \begin{itemize}
+       \item \PhDmyalt{2}{Son score CVSS (défini plus loin), conséquence des autres
+         propriétés}
+       \item \PhDmyalt{3}{Son impact en terme de confidentialité}
+       \item \PhDmyalt{4}{Son impact en terme d'intégrité}
+       \item \PhDmyalt{5}{Son impact en terme de disponibilité}
+       \item \PhDmyalt{6}{Sa complexité technique de mise en oeuvre}
+       \item \PhDmyalt{7}{Le niveau d'accès nécessaire à sa mise en oeuvre}
+       \item \PhDmyalt{8}{Le niveau de gain}
+       \item \PhDmyalt{9}{Le type de vulnérabilité}
+       \item \PhDmyalt{10}{L'identifiant de faiblesse associé (CWE)}
+       \item \PhDmyalt{11}{Un identifiant unique la référençant, sous la forme CVE-<année>-<incrément>}
+     \end{itemize}
+    }
+   }
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -484,7 +500,8 @@
       faiblesses détectées
     \item Les CWE sont organisée sous forme d'une structure hiérarchique de
       faiblesses
-    \item Il existe des centaines de CWE, parmis lesquelles:
+    \item Il existe des centaines de CWE, classées et numérotées, comme par
+      e.g.:
       \begin{itemize}
         \item CWE 20: Improper Input Validation. Typiquement une validation
           incorrecte d'un flux d'entrée non maîtrisée.
@@ -492,7 +509,7 @@
           faiblesse liée à la mise à jour logicielle non sécurisée d'une appliance
       \end{itemize}
     \item A chaque identitfant de CWE est indiqué l'impact probable d'une CVE
-      de ce type, l'effet probable en terme d'accessibilité, confidentialité
+      basée sur celle-ci, l'effet probable en terme d'accessibilité, confidentialité
       et disponibilité, et les manières de s'en prémunir
   \end{itemize}
 \end{frame}
@@ -538,27 +555,44 @@
   \end{itemize}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Le formalisme OVAL}
+  \begin{block}{Une fiche de test}
+    \begin{itemize}
+      \item Un langage verbeux, au format XML
+      \item Utilisant correctement l'écosystème XML (XMLSchema, XSD, etc.)
+      \item Définissant la finalité du test, pas le moyen (laissé à
+        l'implémentation de la sonde)
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Le formalisme XCCDF}
-  \begin{itemize}
-    \item Permet de rédiger des checklists (typiquement pour auditer un
-      équipement par rapport à une politique de sécurité)
-    \item est un formalisme XML
-    \item Associe un ensemble de fiches OVAL à une politique de sécurité,
-      assurant ainsi une traçabilité des tests
-    \item Permet d'intégrer des mécanismes d'interactivité via le formalisme
-      OCIL (Open Checklist Interactive Language), correspondant à une sorte
-      d'intégration d'un niveau "QCM" au niveau de la règle. Un exemple
-      typique est la variation de certaines valeurs, comme la durée de session
-      Idle SSH, pouvant varier selon la cible
-  \end{itemize}
-\end{frame}
+  \begin{block}{Langage de génération des STIGs et des checklists}
+    \begin{itemize}
+      \item Permet de rédiger des checklists (typiquement pour auditer un
+        équipement par rapport à une politique de sécurité)
+      \item Génère dans le même temps le guide de sécurité associé
+      \item est un formalisme XML
+      \item Associe un ensemble de fiches OVAL à une politique de sécurité,
+        assurant ainsi une traçabilité des tests
+    \end{itemize}
+  \end{block}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Le formalisme OVAL}
+  \begin{block}{XCCDF est riche et complexe}
+    \begin{itemize}
+      \item Il possède des mécanismes de contrôle intégrés (macros if)
+      \item Permet d'intégrer des mécanismes d'interactivité via le formalisme
+         OCIL (Open Checklist Interactive Language)
+       \item Il supporte la gestion de variables pouvant être rafinées selon
+         les profils associé au guide de sécurité
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -701,6 +735,44 @@ ID | Timestamp           | Status
 \begin{frame}
 \end{frame}
 
+
+%\defverbatim[colored]\lstoscapd{
+\defverbatim[colored]\lstoval{
+\begin{lstlisting}[language=xml]
+<def-group>
+  <definition class="compliance" id="partition_for_tmp" version="1">
+    <metadata>
+        <title>Ensure /tmp Located On Separate Partition</title>
+        <affected family="unix">
+          <platform>Debian 8</platform>
+        </affected>
+        <description>
+          The /tmp directory is a world-writable directory used for
+          temporary file storage. Verify that it has its own partition or logical
+          volume.
+        </description>
+    </metadata>
+    <criteria>
+      <criterion test_ref="test_tmp_partition" comment="/tmp on own partition" />
+    </criteria>
+  </definition>
+  <linux:partition_test check="all" check_existence="all_exist" id="test_tmp_partition" version="1" comment="/tmp on own partition">
+     <linux:object object_ref="object_own_tmp_partition" />
+  </linux:partition_test>
+  <linux:partition_object id="object_own_tmp_partition" version="1">
+    <linux:mount_point>/tmp</linux:mount_point>
+  </linux:partition_object>
+</def-group>
+\end{lstlisting}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Exemple de fiche OVAL}
+  \lstoval
+\end{frame}
+
+
 \subsection{XCCDF: Ecrire une politique de sécurité dédiée}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -739,6 +811,7 @@ ID | Timestamp           | Status
     CVE & Common Vulnerability Discolsure \\
     CVSS & Common Vulnerability Scoring System \\
     CWE & Common Weakness Enumeration \\
+    OCIL & Open Checklist Interactive Language \\
     OS & Operating System \\
     OVAL & Open Vulneratbility and Assessment Language \\
     STIG & Security Technical Implementation Guide \\

@@ -228,7 +228,7 @@
 \definecolor{cyan}{rgb}{0.0,0.6,0.6}
 
 \lstset{
-	language=C,
+	language=XML,
 	numbers=left,
 	tabsize=4,
 	backgroundcolor=\color{gris},
@@ -237,14 +237,13 @@
 	stringstyle=\ttfamily,
 	framexleftmargin=6mm,
 	xleftmargin=6mm,
-	basicstyle=\small,
 	keywordstyle=\color{black}\bfseries,
 	commentstyle=\color{red}\textit,
 	stringstyle=\color{Orange}\ttfamily
 }
 
 \lstdefinelanguage{XML}{
-	morestring=[b]",
+	morestring=[b],
 	morestring=[s]{>}{<},
 	morecomment=[s]{<?}{?>},
 	stringstyle=\color{black},
@@ -254,8 +253,6 @@
 }
 
 \lstset{
-	language=XML,
-	basicstyle=\scriptsize,
 	tabsize=2,
 	backgroundcolor=\color{gris},
 	frame=single,
