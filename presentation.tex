@@ -315,21 +315,8 @@ Lynis security scan details:
         petits acteurs
     \end{itemize}
   }
-  \only<3>{
-    \begin{itemize}
-      \item L'existance de structures verticales multiples (en générale par
-        vendeur) et incompatibles entre elles rend le gestion de la sécurité
-        d'un parc quasiment impossible à valider efficacement, à la fois
-        en terme de coût et en terme de garantie
-      \item L'indépendances des échelles, des outils et des protocoles
-        implique une mise en place difficile du plan de gestion de la
-        sécurité, et un surcoût évident au niveau du SoC (Security Operation
-        Center) du système d'information, écartant de fait ce service des
-        petits acteurs
-    \end{itemize}
-  }
 
-  \only<4>{
+  \only<3>{
   \frametitle{Comment corriger le tir ?}
   \begin{itemize}
     \item Séparer l'implémentation des sondes du formalisme des tests,
@@ -440,7 +427,7 @@ Lynis security scan details:
      \vfill
      \vfill
    }
-   \only<2>{
+   \only<2-11>{
      {\small
     \begin{itemize}
        \item \PhDmyalt{2}{Son score CVSS (défini plus loin), conséquence des autres
@@ -765,6 +752,65 @@ ID | Timestamp           | Status
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+  \begin{block}{Formalisme de base}
+    \begin{itemize}
+      \item Une fiche OVAL est une définition, à laquelle on associe un ou plusieurs tests
+      \item Une définition peut être de type:
+	      \begin{itemize}
+		      \item compliance (conformité à une exigence)
+		      \item inventory (détection d'un composant (au sens du standard CPE)
+		      \item patch (détection de la présence d'un patch)
+		      \item vulnerability (détection d'une vulnérabilité)
+		      \item miscellaneous (tout le reste)
+	      \end{itemize}
+      \item une fiche OVAL possède un identifiant unique (dénoté {\it id}), une description, un titre et une ou plusieurs cible(s)
+    \end{itemize}
+  \end{block}
+  \begin{block}{Critères de validation de la fiche}
+    \begin{itemize}
+      \item Une fiche OVAL est vraie lorsque;
+	      \begin{itemize}
+		      \item la cible correspond à celle définie dans la fiche OVAL
+		      \item l'ensemble des critères nécessaires et suffisants à sa validation ont été joués avec un résultat positif
+	      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{block}{Les critères OVAL}
+    \begin{itemize}
+      \item Les critères utilisent une logique booléenne récursive
+      \item On peut utiliser la mécanique booléenne pour construire des fiches complexes
+	      \begin{itemize}
+		      \item Appliquant des tests différents selon la plateforme cible
+		      \item Se comportant différement selon l'architecture matérielle
+		      \item etc.
+	      \end{itemize}
+      \item Les critères permettent de hiérarchiser les fiches, une fiche pouvant enrichir (et donc dépendre) d'une autre
+      \item Le sur-usage de la logique booléenne des critères peut cependant rendre la fiche illisible
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{block}{Les sélecteurs OVAL}
+    \begin{itemize}
+	    \item Des politiques de sécurités de plus haut niveau (comme clles du NIST) peuvent impliquer plusieurs STIGs
+	    \item Les STIGs peuvent impliquer des niveaux de durcissement variables selon le profil
+	    \item Afin de ne pas multiplier les fiches OVAL, le language permet l'usage de variables, qu'on dénote sélecteur
+    \end{itemize}
+  \end{block}
+	\begin{block}{Ecrire une fiche avec des sélecteurs}
+    \begin{itemize}
+	    \item La présence d'un sélecteur correspond à la présence d'une variable dans un test
+	    \item La variable est désignée par son nom, qui devra être résolu au moment de la construction de la checklist XCCDF
+	    \item Une fiche OVAL paramétrée impose, pour chaque profil qui l'utilise, de spécifier le sélecteur parmis les choix possibles
+	    \item Une fiche OVAL paramétrée impose, dans la checklist XCCDF, de lister exhaustivement l'ensemble des possible pour le sélecteur
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 
@@ -798,18 +844,261 @@ ID | Timestamp           | Status
 \end{lstlisting}
 }
 
+%\defverbatim[colored]\lstoscapd{
+\defverbatim[colored]\lstovald{
+\begin{lstlisting}[language=xml]
+<def-group>
+  <definition class="compliance" id="accounts_password_pam_retry" version="1">
+    <metadata>
+      <title>Set Password retry Requirements</title>
+      <affected family="unix">
+        <platform>multi_platform_fedora</platform>
+        <platform>multi_platform_rhel</platform>
+        <platform>multi_platform_rhel-osp</platform>
+      </affected>
+      <description>The password retry should meet minimum requirements</description>
+    </metadata>
+    <criteria operator="OR" comment="Conditions for retry are satisfied">
+      <criteria operator="AND" comment="system with pam_cracklib configured">
+        <criteria operator="OR" comment="OSes with cracklib primarily used">
+          <extend_definition comment="RHEL6 OS installed" definition_ref="installed_OS_is_rhel6" />
+          <extend_definition comment="CentOS6 OS installed" definition_ref="installed_OS_is_centos6" />
+        </criteria>
+        <criterion comment="rhel6 pam_cracklib" test_ref="test_password_pam_cracklib_retry" />
+      </criteria>
+      <criteria operator="AND" comment="system with pam_pwquality configured">
+        <criteria operator="OR" comment="OSes with pwquality primarily used">
+          <extend_definition comment="RHEL7 OS installed" definition_ref="installed_OS_is_rhel7" />
+          <extend_definition comment="CentOS7 OS installed" definition_ref="installed_OS_is_centos7" />
+          <extend_definition comment="Fedora OS installed" definition_ref="installed_OS_is_fedora" />
+        </criteria>
+        <criterion comment="pam_pwquality" test_ref="test_password_pam_pwquality_retry" />
+      </criteria>
+    </criteria>
+  </definition>
+  [...]
+</def-group>
+\end{lstlisting}
+}
+
+%\defverbatim[colored]\lstoscapd{
+\defverbatim[colored]\lstovalt{
+\begin{lstlisting}[language=xml]
+<def-group>
+  <definition class="compliance" id="accounts_password_pam_minclass" version="1">
+  [...]
+  </definition>
+  <ind:textfilecontent54_test check="all"
+  comment="check the configuration of /etc/security/pwquality.conf"
+  id="test_password_pam_pwquality_minclass" version="1">
+    <ind:object object_ref="obj_password_pam_pwquality_minclass" />
+    <ind:state state_ref="state_password_pam_pwquality_minclass" />
+  </ind:textfilecontent54_test>
+
+  <ind:textfilecontent54_object id="obj_password_pam_pwquality_minclass"
+  version="1">
+    <ind:filepath>/etc/security/pwquality.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^minclass[\s]*=[\s]*(-?\d+)(?:[\s]|$)</ind:pattern>
+    <ind:instance datatype="int" operation="less than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+
+  <ind:textfilecontent54_state id="state_password_pam_pwquality_minclass"
+  version="1">
+    <ind:instance datatype="int">1</ind:instance>
+    <ind:subexpression datatype="int" operation="greater than or equal"
+    var_ref="var_password_pam_minclass" />
+  </ind:textfilecontent54_state>
+
+  <external_variable comment="External variable for pam_pwquality minclass"
+  datatype="int" id="var_password_pam_minclass" version="1" />
+</def-group>
+\end{lstlisting}
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Exemple de fiche OVAL}
+  \frametitle{Exemple simple de fiche OVAL}
   \lstoval
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Exemple fiche OVAL avec critères avancés}
+  \lstovald
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Exemple de fiche OVAL avec sélecteur}
+  \lstovalt
+\end{frame}
+
 
 
 \subsection{XCCDF: Ecrire une politique de sécurité dédiée}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+	\only<1>{
+	\begin{block}{Principe d'une checklist XCCDF}
+		\begin{itemize}
+			\item Une checklist XCCDF permet de générer autant de STIGs que de profils définit dans la checklist
+			\item une checklist au format XCCDF permet de valider la conformité d'une cible à un STIG donné
+		\end{itemize}
+	\end{block}
+	}
+	\only<2>{
+	\begin{block}{une checklist XCCDF}
+		\begin{itemize}
+			\item A pour but de générer des STIGs et les checklist associées
+			\item Inclut autant de profils que nécessaire, à partir du moment où l'ensemble des fiches et règles XCCDF les définissant sont présents
+			\item Est composée de groupes, structurant les guides
+			\item Chaque groupe contient une ou plusieurs règles
+			\item Chaque règle se définie par
+				\begin{itemize}
+					\item Un titre
+					\item Une description
+					\item Un rationnel
+					\item Une traçabilité à une ou plusieurs politiques, sous forme de références
+					\item Un identifiant de configuration CCE associé (s'il existe)
+					\item Une fiche OVAL décrivant la méthode de validation de la règle
+				\end{itemize}
+			\item On peut également y trouver des références OCIL au besoin
+		\end{itemize}
+	\end{block}
+	}
 \end{frame}
+
+\subsection{Les profils et les politiques de sécurité}
+
+
+\defverbatim[colored]\lstxccdf{
+\begin{lstlisting}[language=xml]
+<Group id="accounts-pam">
+<title>Protect Accounts by Configuring PAM</title>
+<description>Group introduction text</description>
+<warning category="general">Potential group-wide warning infos
+<weblink-macro link="http://url/toward/external-content#subchapter"/>
+</warning>
+[...]
+<Value id="var_password_pam_minclass" type="number" operator="equals" interactive="0">
+<title>minclass</title>
+<description>Minimum number of categories of characters that must exist in a password</description>
+<value selector="">3</value>
+<value selector="1">1</value>
+[...]
+</Value>
+
+<Rule id="accounts_password_pam_minclass" severity="medium" prodtype="rhel7">
+<title>Set Password Strength Minimum Different Categories</title>
+<description>The rule description...
+</description>
+<ocil clause="minclass is not found or not set equal to or greater than the required value">
+OCIL informational when clause is true
+</ocil>
+<rationale>
+Rule rationale explanation.
+</rationale>
+<ident prodtype="rhel7" cce="CCE-27115-5" />
+<oval id="accounts_password_pam_minclass" value="var_password_pam_minclass"/>
+<ref prodtype="rhel7" stigid="010170" />
+<ref nist="IA-5" disa="195" ossrg="SRG-OS-000072-GPOS-00040" />
+</Rule>
+\end{lstlisting}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Exemple de checklist XCCDF}
+  \lstxccdf
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\begin{block}{Définition d'un profil}
+		Un profil correspond à la formalisation XCCDF d'un STIG.\\
+		Elle correspond à:
+		\begin{itemize}
+			\item une suite de règles XCCDF
+			\item un ensemble de sélecteurs, nécessaires pour spécialiser les règles\\
+		\end{itemize}
+	\end{block}
+	Ainsi:
+	\begin{itemize}
+		\item le profil DAT-NT-28 niveau élevé est un sur-ensemble du profil DAT-NT-28 niveau restreint
+		\item le profil PCI-DSS spécifie des sélecteurs pour diverses règles XCCDF comme la taille et la complexité des mots de passes
+	\end{itemize}
+\end{frame}
+
+\defverbatim[colored]\lstprofile{
+\begin{lstlisting}[language=xml]
+<Profile id="pci-dss" xmlns="http://checklists.nist.gov/xccdf/1.1">
+<title>PCI-DSS v3 Control Baseline for Red Hat Enterprise Linux 7</title>
+<description>This is a *draft* profile for PCI-DSS v3.</description>
+
+<refine-value idref="var_password_pam_unix_remember" selector="4" />
+<refine-value idref="var_account_disable_post_pw_expiration" selector="90" />
+<refine-value idref="var_accounts_passwords_pam_faillock_deny" selector="6" />
+<refine-value idref="var_accounts_passwords_pam_faillock_unlock_time" selector="1800" />
+<refine-value idref="sshd_idle_timeout_value" selector="15_minutes" />
+<refine-value idref="var_password_pam_minlen" selector="7" />
+<refine-value idref="var_password_pam_minclass" selector="2" />
+<refine-value idref="var_accounts_maximum_age_login_defs" selector="90" />
+<refine-value idref="var_auditd_num_logs" selector="5"/>
+
+<select idref="service_auditd_enabled" selected="true"/>
+<select idref="bootloader_audit_argument" selected="true"/>
+<select idref="auditd_data_retention_num_logs" selected="true"/>
+<select idref="auditd_data_retention_max_log_file" selected="true"/>
+<select idref="auditd_data_retention_max_log_file_action" selected="true"/>
+<select idref="auditd_data_retention_space_left_action" selected="true"/>
+<select idref="auditd_data_retention_admin_space_left_action" selected="true"/>
+<select idref="auditd_data_retention_action_mail_acct" selected="true"/>
+<select idref="auditd_audispd_syslog_plugin_activated" selected="true"/>
+[...]
+<select idref="file_group_owner_grub2_cfg" selected="true"/>
+<select idref="package_libreswan_installed" selected="true"/>
+
+</Profile>
+\end{lstlisting}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Exemple de profil}
+  \lstprofile
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\begin{block}{Dimentionnement}
+		Dans les faits, la rédaction d'un STIG au format SCAP demande du temps.\\
+		\begin{itemize}
+			\item STIG PCI-DSS pour RHEL7: profil de 94 règles, 10 sélecteurs
+			\item STIG DISA pour RHEL7: profil de 200 règles, 37 sélecteurs
+			\item La complétude des checklists restent soumis à validation humaine
+			\item Plus de 900 fiches OVAL pour RHEL7, plus de 250 pour Debian, etc.
+		\end{itemize}
+	\end{block}
+	\begin{block}{Automatisation}
+	\begin{itemize}
+		\item La rédaction des checklist XCCDF peut difficilement être automatisé
+		\item La génération de fiches OVAL est parfaitement automatisable
+			\begin{itemize}
+				\item Tests très redondants (présence d'une partition, droits d'un fichier/dossier)
+				\item Peu de contenu descriptif (pas de rationale, etc.)
+			\end{itemize}
+		\item La grande majorité des fiches OVAL du SCAP-security-guide sont générées à partir de templates
+	\end{itemize}
+	\end{block}
+\end{frame}
+
+
+\beginbackup
 
 
 
@@ -824,7 +1113,6 @@ ID | Timestamp           | Status
 \end{center}
 \end{frame}
 
-\beginbackup
 
 \section{Annexes}
 \subsection{Acronymes}
@@ -838,15 +1126,18 @@ ID | Timestamp           | Status
     \textbf{Acronyme} & \textbf{Signification} \\
     \hline
     \hline
+    ARF & Asset Reporting Format \\
     CCE & Common Configuration Enumeration \\
     CPE & Common Plateform Enumeration \\
     CVE & Common Vulnerability Discolsure \\
+    CCSS & Common Configuration Scoring System \\
     CVSS & Common Vulnerability Scoring System \\
     CWE & Common Weakness Enumeration \\
     OCIL & Open Checklist Interactive Language \\
     OS & Operating System \\
     OVAL & Open Vulneratbility and Assessment Language \\
     STIG & Security Technical Implementation Guide \\
+    TMSAD & Trust Model for Security Automation Data \\
     XCCDF & Extencible Configuration Checklist Description Format \\
   \end{tabular}
 \end{center}
@@ -864,6 +1155,7 @@ ID | Timestamp           | Status
     \item \label{ppst} La PPST (Protection du Potentiel Scientifique et Technique) 
       \url{https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000026140136&dateTexte=20170605}
     \item \label{cwe} Base des CWE du MITRE (\url{http://cwe.mitre.org})
+    \item \label{scapref} \url{https://scap.nist.gov/revision/1.2/index.html} Spécifications de la dernière version finale du standard SCAP (1.2)
   \end{itemize}
 \end{frame}
 
