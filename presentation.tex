@@ -242,7 +242,7 @@ Lynis security scan details:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{Bastille}
+\begin{block}{Bastille}
   \begin{itemize}
     \item Bastille est un vieil outil de durcissement de configuration,
       également capable de faire de l'audit et du reporting
@@ -254,14 +254,15 @@ Lynis security scan details:
       vitesse face à des outils comme Lynis ou OpenSCAP pour l'audit et la
       remédiation
   \end{itemize}
+\end{block}
 \end{frame}
 
 \subsubsection{Traçabilité à une politique de sécurité}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{lynis}
   \only<1>{
+  \begin{block}{lynis}
   \begin{itemize}
     \item Lynis est un outil en ligne de commandes bien abouti, permettant
       d'étudier l'état des configuration et des versions des logiciels du
@@ -272,6 +273,7 @@ Lynis security scan details:
     \item Lynis supporte un grand nombre de tests, ce qui en fait un outil
       riche et efficace, avec une synthèse très convenable
   \end{itemize}
+  \end{block}
   }
   \only<2>{
     \lstlynis
@@ -283,7 +285,7 @@ Lynis security scan details:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 
-  \only<1-3>{
+  \only<1-2>{
   \frametitle{Un écosystème désordonné}
   }
   \only<1>{
@@ -758,7 +760,7 @@ ID | Timestamp           | Status
       \item Une définition peut être de type:
 	      \begin{itemize}
 		      \item compliance (conformité à une exigence)
-		      \item inventory (détection d'un composant (au sens du standard CPE)
+		      \item inventory (détection d'un composant - au sens du standard CPE)
 		      \item patch (détection de la présence d'un patch)
 		      \item vulnerability (détection d'une vulnérabilité)
 		      \item miscellaneous (tout le reste)
@@ -768,7 +770,7 @@ ID | Timestamp           | Status
   \end{block}
   \begin{block}{Critères de validation de la fiche}
     \begin{itemize}
-      \item Une fiche OVAL est vraie lorsque;
+      \item Une fiche OVAL est vraie lorsque :
 	      \begin{itemize}
 		      \item la cible correspond à celle définie dans la fiche OVAL
 		      \item l'ensemble des critères nécessaires et suffisants à sa validation ont été joués avec un résultat positif
@@ -798,7 +800,7 @@ ID | Timestamp           | Status
 \begin{frame}
   \begin{block}{Les sélecteurs OVAL}
     \begin{itemize}
-	    \item Des politiques de sécurités de plus haut niveau (comme clles du NIST) peuvent impliquer plusieurs STIGs
+	    \item Des politiques de sécurités de plus haut niveau (comme celles du NIST) peuvent impliquer plusieurs STIGs
 	    \item Les STIGs peuvent impliquer des niveaux de durcissement variables selon le profil
 	    \item Afin de ne pas multiplier les fiches OVAL, le language permet l'usage de variables, qu'on dénote sélecteur
     \end{itemize}
@@ -1075,6 +1077,7 @@ Rule rationale explanation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+\only<1>{
 	\begin{block}{Dimentionnement}
 		Dans les faits, la rédaction d'un STIG au format SCAP demande du temps.\\
 		\begin{itemize}
@@ -1084,6 +1087,16 @@ Rule rationale explanation.
 			\item Plus de 900 fiches OVAL pour RHEL7, plus de 250 pour Debian, etc.
 		\end{itemize}
 	\end{block}
+
+	\begin{alertblock}{Charge de travail}
+        Il ne faut pas sous-estimer la charge associée à la rédaction et au maintient d'un écosystème SCAP
+        \begin{itemize}
+          \item Les fiches OVAL sont globalement très nombreuses et évoluent avec les guides
+          \item La rédaction des guides restera toujours un travail complexe, impliquant plusieurs expertises
+        \end{itemize}
+    \end{alertblock}
+}
+\only<2>{
 	\begin{block}{Automatisation}
 	\begin{itemize}
 		\item La rédaction des checklist XCCDF peut difficilement être automatisé
@@ -1095,7 +1108,31 @@ Rule rationale explanation.
 		\item La grande majorité des fiches OVAL du SCAP-security-guide sont générées à partir de templates
 	\end{itemize}
 	\end{block}
+}
+\only<3>{
+	\begin{block}{Répartition des rôles}
+	\begin{itemize}
+		\item Les fiches OVAL définissant un patch ou une vulnérabilité sont souvent à la charge de l'éditeur
+        \item Elles sont souvent générées automatiquement en même temps que la CVE, ou à partir d'elle
+	\end{itemize}
+	\end{block}
+}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Le workflow SCAP... reprise}
+  \begin{center}
+    \begin{figure}
+      \includegraphics[height=5.5cm]{Images/scap/scap_automaton}
+      \label{scap_workflow}
+      \caption{Synthèse du workflow SCAP
+      (\url{https://cve.mitre.org/docs/docs-2005/transformational_standards.html})}
+    \end{figure}
+  \end{center}
+
+\end{frame}
+
 
 
 \beginbackup
