@@ -15,11 +15,13 @@
 \DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{beamer}}
 
 \DeclareOption{dvips}{\PassOptionsToClass{\CurrentOption}{beamer}}
+\DeclareOption{t}{\PassOptionsToClass{\CurrentOption}{beamer}}
 
 \newif\if@final
 \@finaltrue
 \DeclareOption{draft}{\PassOptionsToClass{\CurrentOption}{beamer}\@finalfalse}
 \DeclareOption{final}{\PassOptionsToClass{\CurrentOption}{beamer}\@finaltrue}
+
 
 
 \DeclareOption{handout}{\PassOptionsToClass{\CurrentOption}{beamer}}
