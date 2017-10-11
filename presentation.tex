@@ -283,10 +283,8 @@ Lynis security scan details:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 
-  \only<1-3>{
-  \frametitle{Un écosystème désordonné}
-  }
   \only<1>{
+  \begin{block}{Un écosystème désordonné}
   \begin{itemize}
     \item Bien que les outils de patch management et de suivi de la sécurité
       d'un équipement existent, l'écosystème de gestion de la sécurité est
@@ -301,8 +299,10 @@ Lynis security scan details:
       ajoutée du logiciel, imposant de fait aux industriel une fidélité à un
       éditeur pour simplifier la gestion de la sécurité de leur parc
   \end{itemize}
+  \end{block}
   }
   \only<2>{
+  \begin{block}{Un écosystème désordonné}
     \begin{itemize}
       \item L'existance de structures verticales multiples (en générale par
         vendeur) et incompatibles entre elles rend le gestion de la sécurité
@@ -314,10 +314,11 @@ Lynis security scan details:
         Center) du système d'information, écartant de fait ce service des
         petits acteurs
     \end{itemize}
+  \end{block}
   }
 
   \only<3>{
-  \frametitle{Comment corriger le tir ?}
+  \begin{block}{Comment corriger le tir ?}
   \begin{itemize}
     \item Séparer l'implémentation des sondes du formalisme des tests,
       permettant d'enrichir chaque partie aisément
@@ -332,9 +333,11 @@ Lynis security scan details:
         \item une mécanique de correction de la faiblesse de sécurité
           (remédiation)
       \end{itemize}
-    \item {\textcolor{red}{Faire en sorte de faire entrer l'ensemble des constructeurs et éditeurs
-      dans le nouvel écosystème}}
   \end{itemize}
+  \end{block}
+  \begin{alertblock}{Contrainte}
+    Faire participer l'ensemble des constructeurs et éditeurs au nouvel écosystème
+  \end{alertblock}
   }
 \end{frame}
 

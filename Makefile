@@ -16,7 +16,7 @@
 LATEX=pdflatex
 LATEXOPT=-shell-escape
 BIBTEX=bibtex
-PDFVIEWER?=okular
+PDFVIEWER?=atril
 
 TEXINPUTS    = $(shell kpsewhich -var-value=TEXINPUTS)
 LATEXENV = TEXINPUTS='./styles:./dict:$(TEXINPUTS)'
