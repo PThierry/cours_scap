@@ -71,7 +71,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 \setcounter{framenumber}{0}
 \titlepage
 \end{frame}
@@ -80,7 +80,7 @@
 % disactive title color. Frame titles will have no bg color
 %\setbeamercolor{titlelike}{fg=titleTextColor,bg=white}
 
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Introduction}
   \begin{itemize}
     \item Ce cours décrit l'état de l'art des outils de maintien en condition
@@ -96,7 +96,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 {\Large Sommaire}
 \setcounter{tocdepth}{1}
 \scriptsize \tableofcontents
@@ -109,7 +109,7 @@
 \subsection{Les principes de base}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Maintenir ses équipments à jour}
   \begin{block}{Suivi des mises à jour et des correctifs}
   \begin{itemize}
@@ -129,7 +129,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Appliquer les bonnes pratiques de configuration}
   \begin{block}{}
   \begin{itemize}
@@ -153,7 +153,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Définir une polique de sécurité d'un système d'information}
   \begin{block}{}
   \begin{itemize}
@@ -197,7 +197,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 \frametitle{Recherche de vulnérabilité}
 \begin{block}{debsecan}
   \begin{itemize}
@@ -241,8 +241,8 @@ Lynis security scan details:
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Bastille}
+\begin{frame}[t]
+\begin{block}{Bastille}
   \begin{itemize}
     \item Bastille est un vieil outil de durcissement de configuration,
       également capable de faire de l'audit et du reporting
@@ -254,14 +254,15 @@ Lynis security scan details:
       vitesse face à des outils comme Lynis ou OpenSCAP pour l'audit et la
       remédiation
   \end{itemize}
+\end{block}
 \end{frame}
 
 \subsubsection{Traçabilité à une politique de sécurité}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{lynis}
+\begin{frame}[t]
   \only<1>{
+  \begin{block}{lynis}
   \begin{itemize}
     \item Lynis est un outil en ligne de commandes bien abouti, permettant
       d'étudier l'état des configuration et des versions des logiciels du
@@ -272,6 +273,7 @@ Lynis security scan details:
     \item Lynis supporte un grand nombre de tests, ce qui en fait un outil
       riche et efficace, avec une synthèse très convenable
   \end{itemize}
+  \end{block}
   }
   \only<2>{
     \lstlynis
@@ -281,7 +283,7 @@ Lynis security scan details:
 \subsection{Les limites de cet état de l'art}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 
   \only<1>{
   \begin{block}{Un écosystème désordonné}
@@ -325,7 +327,7 @@ Lynis security scan details:
     \item Formaliser l'identification des éqiupements logiciels, matériels
     \item Formaliser une vulnérabilité et son écosystème (risque, complexité,
       cible, etc.)
-    \item Définir un ensemble de languages pour définir, sans prendre
+    \item Définir un ensemble de langages pour définir, sans prendre
       d'hypothèse sur le logiciel ou matériel cible:
       \begin{itemize}
         \item une fiche de test
@@ -344,7 +346,7 @@ Lynis security scan details:
 \subsection{La genèse de SCAP}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Petit rappel des organismes parties prenantes}
   \begin{itemize}
     \item \PhDmyalt{1}{{\bf DoD} - Department of Defense (US)}\\
@@ -368,7 +370,7 @@ Lynis security scan details:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \begin{itemize}
     \item La création de SCAP débute au début des années 2000, sur
       une demande du DoD pour unifier les mécanismes de gestion de la
@@ -418,7 +420,7 @@ Lynis security scan details:
 \subsection{Un écosystème de standards}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
    \begin{block}{Les CVEs}
    \begin{itemize}
      \item Une CVE est une formalisation d'une vulnérabilité.
@@ -450,7 +452,7 @@ Lynis security scan details:
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 
 \begin{center}
   \begin{figure}
@@ -463,7 +465,7 @@ Lynis security scan details:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Le CVSS}
   \begin{itemize}
     \item Permet de déterminer le niveau de risque associé à une CVE
@@ -485,7 +487,7 @@ Lynis security scan details:
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 
   \only<1>{
   \begin{center}
@@ -510,7 +512,7 @@ Lynis security scan details:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Les CWE}
   \begin{itemize}
     \item Le but des CWE et de définir des familles de faiblesses (à
@@ -538,7 +540,7 @@ Lynis security scan details:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Les CPE}
   \begin{itemize}
     \item Qui dit formalisation généralisée à l'ensemble des équipements et
@@ -578,7 +580,7 @@ Lynis security scan details:
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Le formalisme OVAL}
   \begin{block}{Une fiche de test}
     \begin{itemize}
@@ -593,7 +595,7 @@ Lynis security scan details:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Le formalisme XCCDF}
   \begin{block}{Langage de génération des STIGs et des checklists}
     \begin{itemize}
@@ -617,20 +619,12 @@ Lynis security scan details:
   \end{block}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Petite synthèse}
-
-\end{frame}
-
-
-
-
 \subsection{Un workflow complet pour le MCS}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 
+  \frametitle{Petite synthèse}
   \begin{center}
     \begin{figure}
       \includegraphics[height=5.5cm]{Images/scap/scap_automaton}
@@ -645,7 +639,36 @@ Lynis security scan details:
 \subsection{Etat de l'art des implémentations}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
+  \only<1>{
+  \begin{block}{Solutions professionelles}
+    \begin{itemize}
+      \item SCAP est aujourd'hui supporté par diverses outils et fournisseurs de logiciels de sécurité
+        \begin{itemize}
+          \item Nessus Manager, Ms Configuration Manager 2007, SAINT Security Suite, Qualys...
+        \end{itemize}
+       \item Bien que SCAP soit basé sur un ensemble de standards, les fiches OVAL ou les STIGs ne sont pas toujours interopérables
+          \begin{itemize}
+            \item Cetains éditeurs, comme CIS, enrichissent le langage
+            \item La compréhention de la norme peut varier selon les implémentations
+        \end{itemize}
+    \end{itemize}
+  \end{block}
+  }
+  \only<2>{
+  \begin{block}{Solutions Open-Source}
+    \begin{itemize}
+      \item A ce jour, le projet Open-Source le plus abouti est Open-SCAP, initié par le NIST
+      \item Les politiques de sécurité sont portées par le projet SCAP-Security-Guide
+    \end{itemize}
+  \end{block}
+  \begin{alertblock}{Limitations des solutions Open-Source}
+    \begin{itemize}
+      \item Très orientées GNU/Linux, le support des *BSD est de Windows en est à ses balbutiement
+      \item Un long travail d'enrichissement des sondes est nécessaire
+    \end{itemize}
+  \end{alertblock}
+  }
 \end{frame}
 
 
@@ -664,20 +687,59 @@ Lynis security scan details:
 \subsection{OpenSCAP et SCAP-Security-guide}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
+
+\only<1>{
+\begin{block}{OpenSCAP}
+  \begin{itemize}
+    \item Implémentation en C
+    \item Supporte un ensemble de sonde correspondant au diverses abstraction OVAL
+    \item Chaque sonde gère une tâche particulière
+      \begin{itemize}
+        \item Parsing d'un fichier
+        \item Intérogation d'un gestionnaire de services
+        \item Intérogation d'un gestionnaire de paquets
+      \end{itemize}
+    \item Gère la génération de rapports aux formats HTML, XML et ARF
+    \item Sait lancer des scripts de remédiation si fournis en entrée
+    \item Sait traiter en entrée des données au formats OVAL ou XCCDF principalement
+  \end{itemize}
+\end{block}
+}
+\only<2>{
+\begin{block}{SCAP-Security-Guide}
+  \begin{itemize}
+    \item Contient les politiques au format OVAL et XCCDF
+    \item Se base sur un moteur de génération écrit en Python
+    \item S'appuie sur OpenSCAP pour construire les STIGs et les benchmarks associés
+    \item Supporte divers STIGs (PCI-DSS, Notes techniques ANSSI...)
+    \item Supporte divers cibles GNU/Linux
+    \item Supporte divers cibles applicatives (Chrome, JBoss, JRE...)
+    \item Supporte les scripts de remédiation dans divers format
+  \end{itemize}
+\end{block}
+
+\begin{alertblock}{Etat des lieux du projet}
+  \begin{itemize}
+    \item Toutes les distributions et applicatifs ne sont pas supportés de manière égale
+    \item Un gros effort est en cours sur le support des scripts de remédiation
+    \item La complétudes des STIGs n'est pas toujours complète
+  \end{itemize}
+\end{alertblock}
+}
 
 \end{frame}
 
 \subsection{Tester la conformité d'une cible à une politique de sécurité}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 \end{frame}
 
 \subsection{Appliquer des scripts de remédiation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 \end{frame}
 
 
@@ -713,7 +775,7 @@ ID | Timestamp           | Status
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Centraliser les rapports, gérer le SI}
   \only<1>{
   \begin{columns}
@@ -754,14 +816,14 @@ ID | Timestamp           | Status
 \subsection{OVAL: rédiger une fiche de test}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \begin{block}{Formalisme de base}
     \begin{itemize}
       \item Une fiche OVAL est une définition, à laquelle on associe un ou plusieurs tests
       \item Une définition peut être de type:
 	      \begin{itemize}
 		      \item compliance (conformité à une exigence)
-		      \item inventory (détection d'un composant (au sens du standard CPE)
+		      \item inventory (détection d'un composant - au sens du standard CPE)
 		      \item patch (détection de la présence d'un patch)
 		      \item vulnerability (détection d'une vulnérabilité)
 		      \item miscellaneous (tout le reste)
@@ -771,7 +833,7 @@ ID | Timestamp           | Status
   \end{block}
   \begin{block}{Critères de validation de la fiche}
     \begin{itemize}
-      \item Une fiche OVAL est vraie lorsque;
+      \item Une fiche OVAL est vraie lorsque :
 	      \begin{itemize}
 		      \item la cible correspond à celle définie dans la fiche OVAL
 		      \item l'ensemble des critères nécessaires et suffisants à sa validation ont été joués avec un résultat positif
@@ -781,7 +843,7 @@ ID | Timestamp           | Status
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \begin{block}{Les critères OVAL}
     \begin{itemize}
       \item Les critères utilisent une logique booléenne récursive
@@ -798,17 +860,17 @@ ID | Timestamp           | Status
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \begin{block}{Les sélecteurs OVAL}
     \begin{itemize}
-	    \item Des politiques de sécurités de plus haut niveau (comme clles du NIST) peuvent impliquer plusieurs STIGs
+	    \item Des politiques de sécurités de plus haut niveau (comme celles du NIST) peuvent impliquer plusieurs STIGs
 	    \item Les STIGs peuvent impliquer des niveaux de durcissement variables selon le profil
-	    \item Afin de ne pas multiplier les fiches OVAL, le language permet l'usage de variables, qu'on dénote sélecteur
+	    \item Afin de ne pas multiplier les fiches OVAL, le langage permet l'usage de variables, qu'on dénote sélecteur
     \end{itemize}
   \end{block}
 	\begin{block}{Ecrire une fiche avec des sélecteurs}
     \begin{itemize}
-	    \item La présence d'un sélecteur correspond à la présence d'une variable dans un test
+	    \item Un sélecteur est une variable dans un test
 	    \item La variable est désignée par son nom, qui devra être résolu au moment de la construction de la checklist XCCDF
 	    \item Une fiche OVAL paramétrée impose, pour chaque profil qui l'utilise, de spécifier le sélecteur parmis les choix possibles
 	    \item Une fiche OVAL paramétrée impose, dans la checklist XCCDF, de lister exhaustivement l'ensemble des possible pour le sélecteur
@@ -920,19 +982,19 @@ ID | Timestamp           | Status
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Exemple simple de fiche OVAL}
   \lstoval
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Exemple fiche OVAL avec critères avancés}
   \lstovald
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Exemple de fiche OVAL avec sélecteur}
   \lstovalt
 \end{frame}
@@ -942,7 +1004,7 @@ ID | Timestamp           | Status
 \subsection{XCCDF: Ecrire une politique de sécurité dédiée}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 	\only<1>{
 	\begin{block}{Principe d'une checklist XCCDF}
 		\begin{itemize}
@@ -1012,13 +1074,13 @@ Rule rationale explanation.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Exemple de checklist XCCDF}
   \lstxccdf
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 	\begin{block}{Définition d'un profil}
 		Un profil correspond à la formalisation XCCDF d'un STIG.\\
 		Elle correspond à:
@@ -1069,7 +1131,7 @@ Rule rationale explanation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Exemple de profil}
   \lstprofile
 \end{frame}
@@ -1077,7 +1139,8 @@ Rule rationale explanation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
+\only<1>{
 	\begin{block}{Dimentionnement}
 		Dans les faits, la rédaction d'un STIG au format SCAP demande du temps.\\
 		\begin{itemize}
@@ -1087,6 +1150,16 @@ Rule rationale explanation.
 			\item Plus de 900 fiches OVAL pour RHEL7, plus de 250 pour Debian, etc.
 		\end{itemize}
 	\end{block}
+
+	\begin{alertblock}{Charge de travail}
+        Il ne faut pas sous-estimer la charge associée à la rédaction et au maintient d'un écosystème SCAP
+        \begin{itemize}
+          \item Les fiches OVAL sont globalement très nombreuses et évoluent avec les guides
+          \item La rédaction des guides restera toujours un travail complexe, impliquant plusieurs expertises
+        \end{itemize}
+    \end{alertblock}
+}
+\only<2>{
 	\begin{block}{Automatisation}
 	\begin{itemize}
 		\item La rédaction des checklist XCCDF peut difficilement être automatisé
@@ -1098,7 +1171,31 @@ Rule rationale explanation.
 		\item La grande majorité des fiches OVAL du SCAP-security-guide sont générées à partir de templates
 	\end{itemize}
 	\end{block}
+}
+\only<3>{
+	\begin{block}{Répartition des rôles}
+	\begin{itemize}
+		\item Les fiches OVAL définissant un patch ou une vulnérabilité sont souvent à la charge de l'éditeur
+        \item Elles sont souvent générées automatiquement en même temps que la CVE, ou à partir d'elle
+	\end{itemize}
+	\end{block}
+}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]
+  \frametitle{Le workflow SCAP... reprise}
+  \begin{center}
+    \begin{figure}
+      \includegraphics[height=5.5cm]{Images/scap/scap_automaton}
+      \label{scap_workflow}
+      \caption{Synthèse du workflow SCAP
+      (\url{https://cve.mitre.org/docs/docs-2005/transformational_standards.html})}
+    \end{figure}
+  \end{center}
+
+\end{frame}
+
 
 
 \beginbackup
@@ -1106,7 +1203,7 @@ Rule rationale explanation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
 \vspace{5mm}
 \begin{center}
 \frametitle{Questions ?}
@@ -1122,7 +1219,7 @@ Rule rationale explanation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \rowcolors{2}{white}{lightgray}
-\begin{frame}
+\begin{frame}[t]
   \begin{center}
   \begin{tabular}{ll}
     \hline
@@ -1149,7 +1246,7 @@ Rule rationale explanation.
 \subsection{Table des références}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[t]
   \frametitle{Sites web utiles}
   \begin{itemize}
     \item Cvedetails : \url{https://www.cvedetails.com}
@@ -1165,7 +1262,7 @@ Rule rationale explanation.
 \subsection{Bibliographie et liens utiles}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+%\begin{frame}[t]
 %  \frametitle{Livres et articles sur Android et sa sécurité}
 %  \begin{itemize}
 %    \item Nikolay Elenkov,  {\it Android Security Internals: An In-Depth Guide to Android's
@@ -1176,7 +1273,7 @@ Rule rationale explanation.
 %  de backdoors ciblées} - Actes du SSTIC 2013
 %\item Nicolas Ruff, {\it Sécurité du système Android} - Actes du SSTIC 2011
 %  \end{itemize}
-\end{frame}
+%\end{frame}
 
 \backupend
 
