@@ -134,14 +134,14 @@
 %%% Math Definition %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 \RequirePackage{xfrac}
-\RequirePackage{stmaryrd} %% Use \rrbracket et \llbracket to have [| and|]
+%\RequirePackage{stmaryrd} %% Use \rrbracket et \llbracket to have [| and|]
 \RequirePackage{amsmath}
 \RequirePackage{amsthm}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
 
 %% Algorithmes
-\usepackage[french,ruled,longend,linesnumbered,titlenumbered]{algorithm2e}
+%\usepackage[french,ruled,longend,linesnumbered,titlenumbered]{algorithm2e}
 
 
 %%% Hyperref et Images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
