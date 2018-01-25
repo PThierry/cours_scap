@@ -734,12 +734,40 @@ Lynis security scan details:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[t]
+  \begin{block}{via un serveur de sécurité}
+  \begin{itemize}
+    \item Qui stocke la ou les STIGs
+    \item Qui émet de manière périodique une vérification des équipements
+      \begin{itemize}
+        \item Conformité au(x) STIG(s)
+        \item État des vulnérabilités
+        \item ...
+      \end{itemize}
+    \item Qui consolide les résultats et les transmet en base pour traitement
+  \end{itemize}
+\end{block}
 \end{frame}
 
 \subsection{Appliquer des scripts de remédiation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frame 9/10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[t]
+  \frametitle{Remédiation à chaud}
+  \begin{block}{}
+  \begin{itemize}
+    \item Reste une action complexe est risquée
+    \item Est basée, pour OpenSCAP, sur les outils de gestion de configuration
+      \begin{itemize}
+          \item Ansible
+          \item Puppet
+          \item ...
+      \end{itemize}
+    \item Peut être appliqué au moment de la vérification de la cible
+  \end{itemize}
+\end{block}
+  \begin{alertblock}{}
+  Reste une action souvent manuelle après remise du rapport sur la cible
+\end{alertblock}
 \end{frame}
 
 
